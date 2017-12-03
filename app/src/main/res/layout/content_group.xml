@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_group">
 
     <RelativeLayout
+        android:id="@+id/groupRelLayout"
         android:layout_width="match_parent"
         android:layout_height="512dp"
         tools:layout_editor_absoluteY="55dp">

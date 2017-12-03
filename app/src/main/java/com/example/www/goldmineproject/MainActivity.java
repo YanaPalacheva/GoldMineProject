@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             public void onSwipeLeft() {
-                Intent intent = new Intent(MainActivity.this, GroupActivity.class);
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
         };

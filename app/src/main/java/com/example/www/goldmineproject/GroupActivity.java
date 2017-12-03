@@ -9,8 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 public class GroupActivity extends MainActivity {
+
+    private OnSwipeTouchListener onSwipeTouchListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,20 @@ public class GroupActivity extends MainActivity {
         setContentView(R.layout.activity_group);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        onSwipeTouchListener = new OnSwipeTouchListener(GroupActivity.this) {
+            public void onSwipeRight() {
+                Intent intent = new Intent(GroupActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+            public void onSwipeLeft() {
+                Intent intent = new Intent(GroupActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        };
+
+        RelativeLayout myLayout = (RelativeLayout) findViewById(R.id.groupRelLayout);
+        myLayout.setOnTouchListener(onSwipeTouchListener);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
