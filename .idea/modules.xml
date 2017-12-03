@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GoldMineProject.iml" filepath="$PROJECT_DIR$/GoldMineProject.iml" />
+      <module fileurl="file://C:\Users\Public\GoldMineProject\.idea\GoldMineProject.iml" filepath="C:\Users\Public\GoldMineProject\.idea\GoldMineProject.iml" />
+      <module fileurl="file://C:\Users\Public\GoldMineProject\GoldMineProject.iml" filepath="C:\Users\Public\GoldMineProject\GoldMineProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Public\GoldMineProject\app\app.iml" filepath="C:\Users\Public\GoldMineProject\app\app.iml" />
     </modules>
   </component>
 </project>
