@@ -11,7 +11,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,16 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".GroupActivity"
-            android:label="@string/title_activity_group"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddGroupActivity" />
-        <activity android:name=".AddPersonalActivity"></activity>
+        <activity android:name=".AddPersonalActivity" />
+        <activity android:name=".AddProfileActivity"></activity>
     </application>
 
 </manifest>

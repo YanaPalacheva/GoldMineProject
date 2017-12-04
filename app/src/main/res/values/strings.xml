@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">Личные счета</string>
+    <string name="app_name">Pfshhsh</string>
     <string name="action_settings">Настройки</string>
     <string name="title_activity_group">Групповые счета</string>
     <string name="title_activity_profile">Профили</string>
+    <string name="title_activity_personal">Личные счета</string>
+    <string name="label_empty_list">Список пуст</string>
 </resources>

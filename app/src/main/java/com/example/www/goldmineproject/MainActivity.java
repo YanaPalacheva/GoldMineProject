@@ -15,39 +15,48 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import java.security.acl.Group;
 
 public class MainActivity extends AppCompatActivity {
 
-    private OnSwipeTouchListener onSwipeTouchListener;
+    private ViewFlipper viewFlipper;
+    private float lastX;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        title = findViewById(R.id.title);
 
-        onSwipeTouchListener = new OnSwipeTouchListener(MainActivity.this) {
-            public void onSwipeRight() {
-                Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                startActivity(intent);
-            }
-            public void onSwipeLeft() {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
-        };
+        viewFlipper = findViewById(R.id.flipper);
 
-        RelativeLayout myLayout = (RelativeLayout) findViewById(R.id.mainRelLayout);
-        myLayout.setOnTouchListener(onSwipeTouchListener);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton personalFAB = findViewById(R.id.personalFAB);
+        personalFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddPersonalActivity.class);
+                startActivity(intent);
+            }
+        });
+        FloatingActionButton groupFAB = findViewById(R.id.groupFAB);
+        groupFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddGroupActivity.class);
+                startActivity(intent);
+            }
+        });
+        FloatingActionButton profileFAB = findViewById(R.id.profileFAB);
+        profileFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -75,5 +84,40 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Using the following method, we will handle all screen swaps.
+    public boolean onTouchEvent(MotionEvent touchevent) {
+        switch (touchevent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                lastX = touchevent.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                float currentX = touchevent.getX();
+                // Handling left to right screen swap.
+                if (lastX < currentX) {
+                    // Next screen comes in from left.
+                    viewFlipper.setInAnimation(this, R.anim.slide_in_from_left);
+                    // Current screen goes out from right.
+                    viewFlipper.setOutAnimation(this, R.anim.slide_out_to_right);
+                    // Display next screen.
+                    viewFlipper.showNext();
+                }
+                // Handling right to left screen swap.
+                if (lastX > currentX) {
+                    viewFlipper.setInAnimation(this, R.anim.slide_in_from_right);
+                    viewFlipper.setOutAnimation(this, R.anim.slide_out_to_left);
+                    // Display previous screen.
+                    viewFlipper.showPrevious();
+                }
+                if (viewFlipper.getCurrentView() == findViewById(R.id.personalRelLayout)) {
+                    title.setText(getResources().getString(R.string.title_activity_personal));
+                } else if (viewFlipper.getCurrentView() == findViewById(R.id.groupRelLayout)) {
+                    title.setText(getResources().getString(R.string.title_activity_group));
+                } else if (viewFlipper.getCurrentView() == findViewById(R.id.profileRelLayout)) {
+                    title.setText(getResources().getString(R.string.title_activity_profile));
+                }
+                    break;
+        }
+        return false;
+    }
 
 }
