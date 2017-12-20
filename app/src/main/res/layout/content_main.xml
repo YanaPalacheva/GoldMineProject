@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whitish"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.www.goldmineproject.MainActivity"
     tools:showIn="@layout/activity_main">
@@ -52,66 +53,44 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteY="55dp">
 
-        <TextView
-            android:id="@+id/personalTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/personalLinearLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/label_empty_list"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/personalFAB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/personalLinearLayout"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/personalLinearLayout"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="17dp"
-            android:layout_marginRight="20dp"
-            android:clickable="true"
-            app:fabSize="normal"
-            app:srcCompat="@android:drawable/ic_input_add" />
-
-        <LinearLayout
-            android:id="@+id/personalLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="61dp"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="67dp">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/personalRecycler"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/personalTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="69dp"
+                android:text="@string/label_empty_list"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ListView
+                android:id="@+id/personalListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:scrollbars="vertical"
-                android:visibility="visible"
-                tools:layout_editor_absoluteX="13dp"
-                tools:layout_editor_absoluteY="132dp"
-                tools:listitem="@android:layout/activity_list_item">
+                android:layout_alignTop="@+id/personalTextView" />
 
-            </android.support.v7.widget.RecyclerView>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/personalFAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="21dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginStart="27dp"
+                android:clickable="true"
+                app:fabSize="normal"
+                app:srcCompat="@android:drawable/ic_input_add" />
 
-        </LinearLayout>
-
-    </RelativeLayout>
+        </RelativeLayout>
         <RelativeLayout
             android:id="@+id/groupRelLayout"
             android:layout_width="match_parent"
@@ -133,6 +112,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <ListView
+                android:id="@+id/groupListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/groupFAB"
                 android:layout_width="wrap_content"
@@ -147,32 +131,6 @@
                 app:fabSize="normal"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
-            <LinearLayout
-                android:id="@+id/groupLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="61dp"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="67dp">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/groupRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:scrollbars="vertical"
-                    android:visibility="visible"
-                    tools:layout_editor_absoluteX="13dp"
-                    tools:layout_editor_absoluteY="132dp"
-                    tools:listitem="@android:layout/activity_list_item" />
-            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -196,6 +154,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <ListView
+                android:id="@+id/profileListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/profileFAB"
                 android:layout_width="wrap_content"
@@ -210,32 +173,6 @@
                 app:fabSize="normal"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
-            <LinearLayout
-                android:id="@+id/profileLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="61dp"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="67dp">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/profileRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:scrollbars="vertical"
-                    android:visibility="visible"
-                    tools:layout_editor_absoluteX="13dp"
-                    tools:layout_editor_absoluteY="132dp"
-                    tools:listitem="@android:layout/activity_list_item" />
-            </LinearLayout>
         </RelativeLayout>
 
     </ViewFlipper>

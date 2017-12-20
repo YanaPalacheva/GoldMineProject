@@ -1,5 +1,6 @@
 package com.example.www.goldmineproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,15 +11,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
 import java.security.acl.Group;
+import java.util.ArrayList;
+
+import appdb.User;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,37 +50,79 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        title = findViewById(R.id.title);
 
-        viewFlipper = findViewById(R.id.flipper);
+        Realm.init(this);
+        Realm realm = Realm.getDefaultInstance();
+        RealmConfiguration config = new RealmConfiguration.Builder().build();
 
-        FloatingActionButton personalFAB = findViewById(R.id.personalFAB);
-        personalFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddPersonalActivity.class);
-                startActivity(intent);
-            }
-        });
-        FloatingActionButton groupFAB = findViewById(R.id.groupFAB);
-        groupFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddGroupActivity.class);
-                startActivity(intent);
-            }
-        });
-        FloatingActionButton profileFAB = findViewById(R.id.profileFAB);
-        profileFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddProfileActivity.class);
-                startActivity(intent);
-            }
-        });
+        /*RealmConfiguration config = new RealmConfiguration.Builder()
+  .name("myrealm.realm")
+  .encryptionKey(getKey())
+  .schemaVersion(42)
+  .modules(new MySchemaModule())
+  .migration(new MyMigration())
+  .build();
+// Use the config
+Realm realm = Realm.getInstance(config);
+
+ЗАПРОСЫ
+
+RealmQuery<User> query = realm.where(User.class);
+
+// Add query conditions:
+query.equalTo("name", "John");
+query.or().equalTo("name", "Peter");
+
+// Execute the query:
+RealmResults<User> result1 = query.findAll();
+
+// Or alternatively do the same all at once (the "Fluent interface"):
+RealmResults<User> result2 = realm.where(User.class)
+                                  .equalTo("name", "John")
+                                  .or()
+                                  .equalTo("name", "Peter")
+                                  .findAll();*/
+
+
+        try {
+            setContentView(R.layout.activity_main);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            title = findViewById(R.id.title);
+
+            viewFlipper = findViewById(R.id.flipper);
+
+            FloatingActionButton personalFAB = findViewById(R.id.personalFAB);
+            personalFAB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, AddPersonalActivity.class);
+                    startActivity(intent);
+                }
+            });
+            FloatingActionButton groupFAB = findViewById(R.id.groupFAB);
+            groupFAB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, AddGroupActivity.class);
+                    startActivity(intent);
+                }
+            });
+            FloatingActionButton profileFAB = findViewById(R.id.profileFAB);
+            profileFAB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, AddProfileActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            ListView profileListView = findViewById(R.id.profileListView);
+            //MyAdapter adapter = new MyAdapter(this, realm.where(User.class).findAll());
+            //listView.setAdapter(adapter);
+        } finally {
+            realm.close();
+        }
     }
 
     @Override
@@ -114,10 +177,10 @@ public class MainActivity extends AppCompatActivity {
                     title.setText(getResources().getString(R.string.title_activity_group));
                 } else if (viewFlipper.getCurrentView() == findViewById(R.id.profileRelLayout)) {
                     title.setText(getResources().getString(R.string.title_activity_profile));
+
                 }
                     break;
         }
         return false;
     }
-
 }
