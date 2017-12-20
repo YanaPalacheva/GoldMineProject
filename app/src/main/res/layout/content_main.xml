@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whitish"
@@ -16,6 +17,7 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -48,10 +50,10 @@
         app:layout_constraintVertical_bias="0.0">
 
         <RelativeLayout
-        android:id="@+id/personalRelLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteY="55dp">
+            android:id="@+id/personalRelLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="55dp">
 
             <TextView
                 android:id="@+id/personalTextView"
@@ -74,23 +76,29 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/personalTextView" />
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="57dp">
+
+            </ListView>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/personalFAB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="21dp"
-                android:layout_marginLeft="27dp"
-                android:layout_marginStart="27dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginRight="17dp"
                 android:clickable="true"
                 app:fabSize="normal"
-                app:srcCompat="@android:drawable/ic_input_add" />
+                app:srcCompat="@android:drawable/ic_input_add"
+                tools:layout_editor_absoluteX="312dp"
+                tools:layout_editor_absoluteY="495dp" />
 
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/groupRelLayout"
             android:layout_width="match_parent"
@@ -101,7 +109,6 @@
                 android:id="@+id/groupTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/groupLinearLayout"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:text="@string/label_empty_list"
@@ -115,15 +122,17 @@
             <ListView
                 android:id="@+id/groupListView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="57dp"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/groupFAB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/groupLinearLayout"
                 android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/groupLinearLayout"
                 android:layout_marginBottom="20dp"
                 android:layout_marginEnd="17dp"
                 android:layout_marginRight="20dp"
@@ -143,7 +152,6 @@
                 android:id="@+id/profileTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/profileLinearLayout"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:text="@string/label_empty_list"
@@ -157,15 +165,17 @@
             <ListView
                 android:id="@+id/profileListView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="57dp"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/profileFAB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/profileLinearLayout"
                 android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/profileLinearLayout"
                 android:layout_marginBottom="20dp"
                 android:layout_marginEnd="17dp"
                 android:layout_marginRight="20dp"

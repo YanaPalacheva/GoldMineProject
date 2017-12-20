@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import appdb.User;
+import io.realm.Realm;
 
 /**
  * Created by www on 20.12.2017.
@@ -21,6 +22,7 @@ import appdb.User;
 public class MyAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private List<User> mData;
+    private Realm realm = Realm.getDefaultInstance();
     public MyAdapter(Context context, List data){
         mData = data;
         mLayoutInflater = LayoutInflater.from(context);
@@ -59,6 +61,7 @@ public class MyAdapter extends BaseAdapter {
         holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
         return vi;
     }
+
 
     static class ViewHolder{
         TextView tvName;

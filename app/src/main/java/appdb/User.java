@@ -16,15 +16,10 @@ bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
 byte[] byteArray = stream.toByteArray();*/
 
 public class User extends RealmObject {
-    @PrimaryKey
-        int id;
+    @PrimaryKey long id;
     String name;
     byte[] pic;
     RealmList<CurVal> total;
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -38,7 +33,7 @@ public class User extends RealmObject {
         return pic;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

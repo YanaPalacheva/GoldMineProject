@@ -1,41 +1,17 @@
 package com.example.www.goldmineproject;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import java.security.acl.Group;
-import java.util.ArrayList;
 
 import appdb.User;
 import io.realm.Realm;
@@ -83,14 +59,29 @@ RealmResults<User> result2 = realm.where(User.class)
                                   .equalTo("name", "Peter")
                                   .findAll();*/
 
-
-        try {
             setContentView(R.layout.activity_main);
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             title = findViewById(R.id.title);
 
             viewFlipper = findViewById(R.id.flipper);
+
+       /* User user1 = new User(); // Create managed objects directly
+        user1.setName("Chupakabra");
+        realm.copyToRealm(user1);
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                user1.setName("Chupakabra");
+            }
+        });
+        User user2 = realm.createObject(User.class, 2); // Create managed objects directly
+        user2.setName("Little Goose");
+        realm.commitTransaction();*/
+
+            ListView profileListView = findViewById(R.id.personalListView);
+            MyAdapter adapter = new MyAdapter(this, realm.where(User.class).findAll());
+            profileListView.setAdapter(adapter);
 
             FloatingActionButton personalFAB = findViewById(R.id.personalFAB);
             personalFAB.setOnClickListener(new View.OnClickListener() {
@@ -116,13 +107,6 @@ RealmResults<User> result2 = realm.where(User.class)
                     startActivity(intent);
                 }
             });
-
-            ListView profileListView = findViewById(R.id.profileListView);
-            //MyAdapter adapter = new MyAdapter(this, realm.where(User.class).findAll());
-            //listView.setAdapter(adapter);
-        } finally {
-            realm.close();
-        }
     }
 
     @Override
@@ -177,9 +161,8 @@ RealmResults<User> result2 = realm.where(User.class)
                     title.setText(getResources().getString(R.string.title_activity_group));
                 } else if (viewFlipper.getCurrentView() == findViewById(R.id.profileRelLayout)) {
                     title.setText(getResources().getString(R.string.title_activity_profile));
-
                 }
-                    break;
+                break;
         }
         return false;
     }
