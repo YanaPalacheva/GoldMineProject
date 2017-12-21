@@ -50,8 +50,8 @@ public class ProfileAdapter extends BaseAdapter {
             //The view is not a recycled one: we have to inflate
             vi = mLayoutInflater.inflate(R.layout.item_profile, parent, false);
             holder = new ViewHolder();
-            holder.tvName = vi.findViewById(R.id.tvText);
-            holder.ivImage = vi.findViewById(R.id.ivImage);
+            holder.tvName = vi.findViewById(R.id.tvTextProfile);
+            holder.ivImage = vi.findViewById(R.id.ivImageProfile);
             vi.setTag(holder);
         } else {
             // View recycled !

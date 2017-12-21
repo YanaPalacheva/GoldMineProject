@@ -55,9 +55,9 @@ public class PersonalAdapter  extends BaseAdapter {
             //The view is not a recycled one: we have to inflate
             vi = mLayoutInflater.inflate(R.layout.item_profile, parent, false);
             holder = new PersonalAdapter.ViewHolder();
-            holder.tvName = vi.findViewById(R.id.tvText);
-            holder.ivImage = vi.findViewById(R.id.ivImage);
-            holder.tvTotal = vi.findViewById(R.id.tvTotal);
+            holder.tvName = vi.findViewById(R.id.tvTextPersonal);
+            holder.ivImage = vi.findViewById(R.id.ivImagePersonal);
+            holder.tvTotal = vi.findViewById(R.id.tvTotalPersonal);
             vi.setTag(holder);
         } else {
             // View recycled !

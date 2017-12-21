@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/ivImage"
+        android:id="@+id/ivImageProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -14,14 +14,14 @@
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
-        android:id="@+id/tvText"
+        android:id="@+id/tvTextProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
-        android:layout_toEndOf="@+id/ivImage"
-        android:layout_toRightOf="@+id/ivImage"
+        android:layout_toEndOf="@+id/ivImageProfile"
+        android:layout_toRightOf="@+id/ivImageProfile"
         android:text="UserName"
         android:textSize="30sp" />
 </RelativeLayout>

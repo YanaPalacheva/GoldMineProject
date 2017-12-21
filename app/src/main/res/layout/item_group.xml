@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/ivImage"
+        android:id="@+id/ivImageGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -14,23 +14,23 @@
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
-        android:id="@+id/tvText"
+        android:id="@+id/tvTextGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
-        android:layout_toEndOf="@+id/ivImage"
-        android:layout_toRightOf="@+id/ivImage"
+        android:layout_toEndOf="@+id/ivImageGroup"
+        android:layout_toRightOf="@+id/ivImageGroup"
         android:text="GroupName"
         android:textSize="30sp" />
 
     <TextView
-        android:id="@+id/tvTotal"
+        android:id="@+id/tvTotalGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvText"
-        android:layout_alignBottom="@+id/tvText"
+        android:layout_alignBaseline="@+id/tvTextGroup"
+        android:layout_alignBottom="@+id/tvTextGroup"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="Total"
