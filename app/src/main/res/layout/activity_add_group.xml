@@ -48,7 +48,7 @@
             android:layout_height="28dp"
             android:layout_alignEnd="@+id/horizontalScrollView"
             android:layout_alignRight="@+id/horizontalScrollView"
-            android:layout_below="@+id/editText"
+            android:layout_below="@+id/editGroupName"
             android:layout_marginTop="42dp"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="41dp" />
@@ -68,7 +68,7 @@
             tools:layout_editor_absoluteY="37dp" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editGroupName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

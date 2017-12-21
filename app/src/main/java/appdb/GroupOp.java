@@ -1,5 +1,7 @@
 package appdb;
 
+import java.util.UUID;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -8,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class GroupOp extends RealmObject {
-    @PrimaryKey int id;
+    @PrimaryKey String id = UUID.randomUUID().toString();
     Group group;
     CurVal curVal;
     String commentary;

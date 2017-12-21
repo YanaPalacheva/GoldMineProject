@@ -2,6 +2,8 @@ package appdb;
 
 import android.graphics.Picture;
 
+import java.util.UUID;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -16,7 +18,7 @@ bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
 byte[] byteArray = stream.toByteArray();*/
 
 public class User extends RealmObject {
-    @PrimaryKey long id;
+    @PrimaryKey String id = UUID.randomUUID().toString();
     String name;
     byte[] pic;
     RealmList<CurVal> total;
@@ -33,7 +35,7 @@ public class User extends RealmObject {
         return pic;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

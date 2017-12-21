@@ -13,6 +13,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.example.www.goldmineproject.adapters.GroupAdapter;
+import com.example.www.goldmineproject.adapters.PersonalAdapter;
+import com.example.www.goldmineproject.adapters.ProfileAdapter;
+
+import appdb.Group;
 import appdb.User;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -22,14 +27,22 @@ public class MainActivity extends AppCompatActivity {
     private ViewFlipper viewFlipper;
     private float lastX;
     private TextView title;
+    private Realm realm;
+
+    public Realm getRealm() {
+        return realm;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Realm.init(this);
-        Realm realm = Realm.getDefaultInstance();
-        RealmConfiguration config = new RealmConfiguration.Builder().build();
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .schemaVersion(3)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(config);
 
         /*RealmConfiguration config = new RealmConfiguration.Builder()
   .name("myrealm.realm")
@@ -66,22 +79,15 @@ RealmResults<User> result2 = realm.where(User.class)
 
             viewFlipper = findViewById(R.id.flipper);
 
-       /* User user1 = new User(); // Create managed objects directly
-        user1.setName("Chupakabra");
-        realm.copyToRealm(user1);
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                user1.setName("Chupakabra");
-            }
-        });
-        User user2 = realm.createObject(User.class, 2); // Create managed objects directly
-        user2.setName("Little Goose");
-        realm.commitTransaction();*/
-
-            ListView profileListView = findViewById(R.id.personalListView);
-            MyAdapter adapter = new MyAdapter(this, realm.where(User.class).findAll());
-            profileListView.setAdapter(adapter);
+            ListView profileListView = findViewById(R.id.profileListView);
+            ProfileAdapter profileAdapter = new ProfileAdapter(this, realm.where(User.class).findAll());
+            profileListView.setAdapter(profileAdapter);
+        ListView personalListView = findViewById(R.id.personalListView);
+        PersonalAdapter personalAdapter = new PersonalAdapter(this, realm.where(User.class).findAll());
+        profileListView.setAdapter(personalAdapter);
+        ListView groupListView = findViewById(R.id.groupListView);
+        GroupAdapter groupAdapter = new GroupAdapter(this, realm.where(Group.class).findAll());
+        profileListView.setAdapter(groupAdapter);
 
             FloatingActionButton personalFAB = findViewById(R.id.personalFAB);
             personalFAB.setOnClickListener(new View.OnClickListener() {
@@ -117,8 +123,14 @@ RealmResults<User> result2 = realm.where(User.class)
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        super.dispatchTouchEvent(ev);
+        return onTouchEvent(ev);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
+        // Handle action bar item_profile clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();

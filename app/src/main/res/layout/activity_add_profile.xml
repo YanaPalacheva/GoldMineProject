@@ -45,7 +45,7 @@
             app:srcCompat="@mipmap/ic_launcher_round" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

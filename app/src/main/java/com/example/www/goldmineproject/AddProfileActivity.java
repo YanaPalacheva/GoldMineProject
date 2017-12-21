@@ -10,23 +10,32 @@ import android.widget.EditText;
 
 import appdb.User;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class AddProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Realm realm = Realm.getDefaultInstance();
         setContentView(R.layout.activity_add_profile);
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .schemaVersion(3)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        final Realm realm = Realm.getInstance(config);
         Button addButton = findViewById(R.id.add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final EditText name = findViewById(R.id.editUserName);
-                User user = realm.createObject(User.class); // Create managed objects directly
-                user.setName(name.getText().toString());
-                //TODO: user.setPic();
-                realm.commitTransaction();
+                final User user = new User(); // Create managed objects directly
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        user.setName(name.getText().toString());
+                        realm.copyToRealm(user);
+                    }
+                });
                 Intent intent = new Intent(AddProfileActivity.this, MainActivity.class);
                 startActivity(intent);
             }

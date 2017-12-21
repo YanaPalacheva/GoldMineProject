@@ -1,7 +1,6 @@
-package com.example.www.goldmineproject;
+package com.example.www.goldmineproject.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.www.goldmineproject.MainActivity;
+import com.example.www.goldmineproject.R;
 
 import java.util.List;
 
@@ -19,13 +21,14 @@ import io.realm.Realm;
  * Created by www on 20.12.2017.
  */
 
-public class MyAdapter extends BaseAdapter {
+public class ProfileAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private List<User> mData;
-    private Realm realm = Realm.getDefaultInstance();
-    public MyAdapter(Context context, List data){
+    private Realm realm;
+    public ProfileAdapter(Context context, List data){
         mData = data;
         mLayoutInflater = LayoutInflater.from(context);
+        realm = ((MainActivity)context).getRealm();
     }
     @Override
     public int getCount() {
@@ -45,7 +48,7 @@ public class MyAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if (vi == null) {
             //The view is not a recycled one: we have to inflate
-            vi = mLayoutInflater.inflate(R.layout.item, parent, false);
+            vi = mLayoutInflater.inflate(R.layout.item_profile, parent, false);
             holder = new ViewHolder();
             holder.tvName = vi.findViewById(R.id.tvText);
             holder.ivImage = vi.findViewById(R.id.ivImage);
@@ -58,7 +61,9 @@ public class MyAdapter extends BaseAdapter {
         }
         User item = getItem(position);
         holder.tvName.setText(item.getName());
-        holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
+        if (item.getPic() != null) {
+            holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
+        }
         return vi;
     }
 
