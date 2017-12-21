@@ -53,7 +53,7 @@ public class GroupAdapter extends BaseAdapter {
         GroupAdapter.ViewHolder holder = null;
         if (vi == null) {
             //The view is not a recycled one: we have to inflate
-            vi = mLayoutInflater.inflate(R.layout.item_profile, parent, false);
+            vi = mLayoutInflater.inflate(R.layout.item_group, parent, false);
             holder = new GroupAdapter.ViewHolder();
             holder.tvName = vi.findViewById(R.id.tvTextGroup);
             holder.ivImage = vi.findViewById(R.id.ivImageGroup);

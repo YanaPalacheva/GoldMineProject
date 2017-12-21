@@ -33,7 +33,7 @@
         android:layout_alignBottom="@+id/tvTextGroup"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="Total"
+        android:text="@string/total"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="30sp" />
 </RelativeLayout>
