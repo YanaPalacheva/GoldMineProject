@@ -3,5 +3,6 @@
     <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="whitish">#FFFAD2</color>
+    <color name="whitish">#F8F8FF</color>#FAEBD7
+    <color name="navbar">#F5F5F5</color>
 </resources>

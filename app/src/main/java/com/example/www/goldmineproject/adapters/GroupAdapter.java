@@ -65,14 +65,16 @@ public class GroupAdapter extends BaseAdapter {
             // no need to findViews by id
             holder = (GroupAdapter.ViewHolder) vi.getTag();
         }
-        Group item = getItem(position);
-        holder.tvName.setText(item.getName());
-        if (item.getTotal() != null) {
-            holder.tvTotal.setText(item.getTotal().toString());
-        }
-        if (item.getPic() != null) {
-            holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
-        }
+        //try {
+            Group item = getItem(position);
+            holder.tvName.setText(item.getName());
+            if (item.getTotal() != null) {
+                holder.tvTotal.setText(item.getTotal().toString());
+            }
+            if (item.getPic() != null) {
+                holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
+            }
+        //} catch (NullPointerException e) {e.fillInStackTrace();}
         return vi;
     }
 

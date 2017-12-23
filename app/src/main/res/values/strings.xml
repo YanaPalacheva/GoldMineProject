@@ -6,4 +6,8 @@
     <string name="title_activity_personal">Личные счета</string>
     <string name="label_empty_list">Список пуст</string>
     <string name="total">Total</string>
+    <string name="title_acc">Профиль</string>
+    <string name="title_groups">Группы</string>
 </resources>
+
+

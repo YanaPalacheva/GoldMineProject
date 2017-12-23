@@ -17,7 +17,8 @@ public class AddPersonalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_personal);RealmConfiguration config = new RealmConfiguration.Builder()
+        setContentView(R.layout.activity_add_personal);
+        RealmConfiguration config = new RealmConfiguration.Builder()
                 .schemaVersion(3)
                 .deleteRealmIfMigrationNeeded()
                 .build();

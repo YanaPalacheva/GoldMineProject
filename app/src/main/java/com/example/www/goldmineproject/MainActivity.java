@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -89,7 +91,7 @@ RealmResults<User> result2 = realm.where(User.class)
         GroupAdapter groupAdapter = new GroupAdapter(this, realm.where(Group.class).findAll());
         profileListView.setAdapter(groupAdapter);
 
-            FloatingActionButton personalFAB = findViewById(R.id.personalFAB);
+            ImageView personalFAB = findViewById(R.id.addPersAccBut);
             personalFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -97,7 +99,7 @@ RealmResults<User> result2 = realm.where(User.class)
                     startActivity(intent);
                 }
             });
-            FloatingActionButton groupFAB = findViewById(R.id.groupFAB);
+            ImageView groupFAB = findViewById(R.id.addGroupBut);
             groupFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -105,7 +107,7 @@ RealmResults<User> result2 = realm.where(User.class)
                     startActivity(intent);
                 }
             });
-            FloatingActionButton profileFAB = findViewById(R.id.profileFAB);
+            ImageView profileFAB = findViewById(R.id.addProfileBut);
             profileFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
