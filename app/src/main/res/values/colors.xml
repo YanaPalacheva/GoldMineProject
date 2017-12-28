@@ -6,4 +6,5 @@
     <color name="whitish">#FFFFF0</color>
     <color name="navbar">#F5F5F5</color>
     <color name="backgr">#F0FFF0</color>
+    <color name="circleBorder">#F5F5F5</color>
 </resources>

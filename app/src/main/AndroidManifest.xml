@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.www.goldmineproject">
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +24,11 @@
         <activity android:name=".AddGroupActivity" />
         <activity android:name=".AddPersonalActivity" />
         <activity android:name=".AddProfileActivity"></activity>
-
+        <activity android:name=".TipDialogActivity"
+            android:theme="@android:style/Theme.Dialog" />
+        <receiver android:name=".AlarmReceiver"/>
+        <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
     </application>
 
 </manifest>

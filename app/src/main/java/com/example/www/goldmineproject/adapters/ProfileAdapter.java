@@ -15,6 +15,7 @@ import com.example.www.goldmineproject.R;
 import java.util.List;
 
 import appdb.User;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.realm.Realm;
 
 /**
@@ -70,6 +71,6 @@ public class ProfileAdapter extends BaseAdapter {
 
     static class ViewHolder{
         TextView tvName;
-        ImageView ivImage;
+        CircleImageView ivImage;
     }
 }

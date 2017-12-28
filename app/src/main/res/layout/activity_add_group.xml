@@ -25,7 +25,8 @@
             android:text="0"
             android:textAlignment="textEnd"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_gravity="end" />
 
         <TextView
             android:id="@+id/textView4"

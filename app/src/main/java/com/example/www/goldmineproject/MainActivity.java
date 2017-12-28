@@ -1,7 +1,19 @@
 package com.example.www.goldmineproject;
 
+import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -18,10 +30,19 @@ import android.widget.ViewFlipper;
 import com.example.www.goldmineproject.adapters.GroupAdapter;
 import com.example.www.goldmineproject.adapters.PersonalAdapter;
 import com.example.www.goldmineproject.adapters.ProfileAdapter;
+import com.mvc.imagepicker.ImagePicker;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import appdb.Group;
 import appdb.MyCurrency;
+import appdb.Tips;
 import appdb.User;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -32,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private float lastX;
     private TextView title;
     private Realm realm;
+    private Bitmap file;
+    private CircleImageView myProfilePic;
 
     public Realm getRealm() {
         return realm;
@@ -48,7 +71,27 @@ public class MainActivity extends AppCompatActivity {
                     .build();
             realm = Realm.getInstance(config);
 
-            putStuffInRealm(realm);
+        //putStuffInRealm(realm);
+        //putTipsInRealm(realm);
+
+        /*
+ЗАПРОСЫ
+
+RealmQuery<User> query = realm.where(User.class);
+
+// Add query conditions:
+query.equalTo("name", "John");
+query.or().equalTo("name", "Peter");
+
+// Execute the query:
+RealmResults<User> result1 = query.findAll();
+
+// Or alternatively do the same all at once (the "Fluent interface"):
+RealmResults<User> result2 = realm.where(User.class)
+                                  .equalTo("name", "John")
+                                  .or()
+                                  .equalTo("name", "Peter")
+                                  .findAll();*/
 
             setContentView(R.layout.activity_main);
             Toolbar toolbar = findViewById(R.id.toolbar);
@@ -119,6 +162,55 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+        ImagePicker.setMinQuality(600, 600);
+        myProfilePic = findViewById(R.id.myProfilePicButton);
+        if (savedInstanceState != null) {
+            file = savedInstanceState.getParcelable("bitmap");
+            myProfilePic.setImageBitmap(file);
+        }
+        myProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onPickImage(view);
+            }
+        });
+
+        NotificationHelper.scheduleRepeatingRTCNotification(this, 10, 0);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
+    }
+
+    /*TODO: settings activity, enable/disable notifications
+    public void clickToggleButtonRTC(View view) {
+        boolean isEnabled = ((ToggleButton)view).isEnabled();
+
+        if (isEnabled) {
+            NotificationHelper.scheduleRepeatingRTCNotification(mContext, hours.getText().toString(), minutes.getText().toString());
+            NotificationHelper.enableBootReceiver(mContext);
+        } else {
+            NotificationHelper.cancelAlarmRTC();
+            NotificationHelper.disableBootReceiver(mContext);
+        }
+    }*/
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        file = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+        myProfilePic.setImageBitmap(file);
+    }
+
+    public void onPickImage(View view) {
+        // Click on image button
+        ImagePicker.pickImage(this, "Select your image:");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle toSave) {
+        super.onSaveInstanceState(toSave);
+        toSave.putParcelable("bitmap", file);
     }
 
     private void putStuffInRealm(Realm realm){
@@ -141,6 +233,46 @@ public class MainActivity extends AppCompatActivity {
                 realm.copyToRealm(usd);
                 realm.copyToRealm(eur);
                 realm.copyToRealm(czk);
+            }
+        });
+    }
+
+    private void putTipsInRealm(Realm realm){
+        final Tips tip1 = new Tips();
+        final Tips tip2 = new Tips();
+        final Tips tip3 = new Tips();
+        final Tips tip4 = new Tips();
+        final Tips tip5 = new Tips();
+        final Tips tip6 = new Tips();
+        final Tips tip7 = new Tips();
+        final Tips tip8 = new Tips();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                tip1.setTip(getString(R.string.tip_1));
+                tip1.setId(1);
+                tip2.setTip(getString(R.string.tip_2));
+                tip2.setId(2);
+                tip3.setTip(getString(R.string.tip_3));
+                tip3.setId(3);
+                tip4.setTip(getString(R.string.tip_4));
+                tip4.setId(4);
+                tip5.setTip(getString(R.string.tip_5));
+                tip5.setId(5);
+                tip6.setTip(getString(R.string.tip_6));
+                tip6.setId(6);
+                tip7.setTip(getString(R.string.tip_7));
+                tip7.setId(7);
+                tip8.setTip(getString(R.string.tip_8));
+                tip8.setId(8);
+                realm.copyToRealm(tip1);
+                realm.copyToRealm(tip2);
+                realm.copyToRealm(tip3);
+                realm.copyToRealm(tip4);
+                realm.copyToRealm(tip5);
+                realm.copyToRealm(tip6);
+                realm.copyToRealm(tip7);
+                realm.copyToRealm(tip8);
             }
         });
     }
