@@ -1,13 +1,23 @@
 <resources>
-    <string name="app_name">Личные счета</string>
+    <string name="app_name">Счетовод</string>
     <string name="action_settings">Настройки</string>
     <string name="title_activity_group">Групповые счета</string>
+    <string name="title_activity_groups">Группы</string>
     <string name="title_activity_profile">Профили</string>
+    <string name="title_activity_myprofile">Мой профиль</string>
     <string name="title_activity_personal">Личные счета</string>
     <string name="label_empty_list">Список пуст</string>
     <string name="total">Total</string>
     <string name="title_acc">Профиль</string>
     <string name="title_groups">Группы</string>
+
+    <string-array name="currs">
+        <item>RUB</item>
+        <item>USD</item>
+        <item>EUR</item>
+        <item>CZK</item>
+    </string-array>
+
 </resources>
 
 

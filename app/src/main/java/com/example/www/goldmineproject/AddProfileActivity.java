@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import appdb.User;
+import appdb.UserOp;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 

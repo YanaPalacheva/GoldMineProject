@@ -12,4 +12,20 @@ import io.realm.RealmObject;
 public class CurVal extends RealmObject {
     MyCurrency currency;
     double value;
+
+    public void setCurrency(MyCurrency currency) {
+        this.currency = currency;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public MyCurrency getCurrency() {
+        return currency;
+    }
+
+    public double getValue() {
+        return value;
+    }
 }

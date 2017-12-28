@@ -67,9 +67,9 @@ public class PersonalAdapter  extends BaseAdapter {
         }
         User item = getItem(position);
         holder.tvName.setText(item.getName());
-        if (item.getTotal() != null) {
-            holder.tvTotal.setText(item.getTotal().toString());
-        }
+        //if (item.getTotal() != null) {
+            holder.tvTotal.setText("~"+String.valueOf(item.getTotal())+" р.");
+        //}
         if (item.getPic() != null) {
             holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
         }

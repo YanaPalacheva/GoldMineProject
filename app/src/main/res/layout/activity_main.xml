@@ -9,22 +9,24 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/navbar">
+        android:background="@color/whitish">
 
     </android.support.design.widget.AppBarLayout>
 
 
     <include
         layout="@layout/content_main"
-        android:layout_width="388dp"
-        android:layout_height="511dp" />
+        android:layout_width="385dp"
+        android:layout_height="565dp"
+        tools:layout_editor_absoluteX="-10dp" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/navbar"
+        android:background="@color/backgr"
+        android:visibility="visible"
         app:menu="@menu/bottom_nav_items" />
 
 </android.support.design.widget.CoordinatorLayout>

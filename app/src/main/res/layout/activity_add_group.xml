@@ -12,6 +12,31 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
+        <TextView
+            android:id="@+id/groupParticCountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+            android:text="0"
+            android:textAlignment="textEnd"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:text="Имя группы"
+            android:textSize="24sp" />
+
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
             android:layout_width="371dp"
@@ -43,7 +68,7 @@
             tools:layout_editor_absoluteY="428dp" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/groupParticSpinner"
             android:layout_width="232dp"
             android:layout_height="28dp"
             android:layout_alignEnd="@+id/horizontalScrollView"
@@ -59,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/spinner"
+            android:layout_alignTop="@+id/groupParticSpinner"
             android:layout_marginLeft="42dp"
             android:layout_marginStart="42dp"
             android:text="Добавить:"
@@ -76,7 +101,6 @@
             android:layout_marginTop="54dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Имя группы"
             android:textAlignment="center"
             android:textSize="24sp" />
 

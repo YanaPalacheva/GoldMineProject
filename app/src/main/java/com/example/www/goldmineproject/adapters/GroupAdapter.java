@@ -57,7 +57,7 @@ public class GroupAdapter extends BaseAdapter {
             holder = new GroupAdapter.ViewHolder();
             holder.tvName = vi.findViewById(R.id.tvTextGroup);
             holder.ivImage = vi.findViewById(R.id.ivImageGroup);
-            holder.tvTotal = vi.findViewById(R.id.tvTotalGroup);
+            //holder.tvTotal = vi.findViewById(R.id.tvTotalGroup);
             vi.setTag(holder);
         } else {
             // View recycled !
@@ -68,9 +68,9 @@ public class GroupAdapter extends BaseAdapter {
         //try {
             Group item = getItem(position);
             holder.tvName.setText(item.getName());
-            if (item.getTotal() != null) {
-                holder.tvTotal.setText(item.getTotal().toString());
-            }
+            //if (item.getTotal() != null) {
+                //holder.tvTotal.setText(item.getTotal().toString());
+            //}
             if (item.getPic() != null) {
                 holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
             }
@@ -82,6 +82,6 @@ public class GroupAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView tvName;
         ImageView ivImage;
-        TextView tvTotal;
+        //TextView tvTotal;
     }
 }

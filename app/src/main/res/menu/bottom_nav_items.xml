@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
-            android:id="@+id/menu_acc"
-            android:title="@string/title_acc"
-            android:icon="@drawable/ic_navbar_acc"
-            />
-        <item
             android:id="@+id/menu_persops"
             android:title="@string/title_activity_personal"
             android:icon="@drawable/ic_navbar_persop"
             />
 
         <item
-            android:id="@+id/menu_groups"
-            android:title="@string/title_groups"
-            android:icon="@drawable/ic_navbar_group"
-            />
-        <item
             android:id="@+id/menu_groupops"
             android:title="@string/title_activity_group"
             android:icon="@drawable/ic_navbar_groupop"
+            />
+
+        <item
+            android:id="@+id/menu_groups"
+            android:title="@string/title_activity_profile"
+            android:icon="@drawable/ic_navbar_group"
+            />
+
+        <item
+            android:id="@+id/menu_acc"
+            android:title="@string/title_activity_myprofile"
+            android:icon="@drawable/ic_navbar_acc"
             />
 </menu>

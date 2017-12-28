@@ -21,6 +21,7 @@
         <activity android:name=".AddGroupActivity" />
         <activity android:name=".AddPersonalActivity" />
         <activity android:name=".AddProfileActivity"></activity>
+
     </application>
 
 </manifest>

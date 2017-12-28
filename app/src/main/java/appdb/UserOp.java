@@ -14,4 +14,16 @@ public class UserOp extends RealmObject {
     User user;
     CurVal curVal;
     String commentary;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setCurVal(CurVal curVal) {
+        this.curVal = curVal;
+    }
+
+    public void setCommentary(String commentary) {
+        this.commentary = commentary;
+    }
 }

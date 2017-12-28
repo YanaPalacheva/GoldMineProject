@@ -39,8 +39,11 @@ public class User extends RealmObject {
         return id;
     }
 
-    public RealmList<CurVal> getTotal() {
-        return total;
+    public double getTotal() {
+        double apprSum=0;
+        for (CurVal cv: total)
+            apprSum+=cv.getValue()*cv.getCurrency().getRate();
+        return apprSum;
     }
 
     public String getName() {

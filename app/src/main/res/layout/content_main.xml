@@ -14,7 +14,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/backgr"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         tools:ignore="MissingConstraints"
@@ -28,10 +28,14 @@
             android:layout_above="@+id/personalTextView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:fontFamily="sans-serif"
             android:text="@string/title_activity_personal"
             android:textAlignment="center"
-            android:textColor="@android:color/background_light"
-            android:textSize="24sp" />
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="12dp" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -48,55 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
-        <RelativeLayout
-            android:id="@+id/groupRelLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            tools:layout_editor_absoluteY="55dp">
-
-            <ImageView
-                android:id="@+id/addGroupBut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="19dp"
-                android:layout_marginRight="19dp"
-                android:layout_marginTop="15dp"
-                app:srcCompat="@drawable/ic_plus" />
-
-            <TextView
-                android:id="@+id/groupTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="69dp"
-                android:text="@string/label_empty_list"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ListView
-                android:id="@+id/groupListView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="57dp">
-
-            </ListView>
-
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/personalRelLayout"
@@ -116,20 +71,6 @@
                 android:layout_marginTop="19dp"
                 app:srcCompat="@drawable/ic_plus" />
 
-            <TextView
-                android:id="@+id/personalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="69dp"
-                android:text="@string/label_empty_list"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
 
             <ListView
                 android:id="@+id/personalListView"
@@ -139,6 +80,41 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="57dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/groupRelLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            tools:layout_editor_absoluteY="55dp">
+
+            <ImageView
+                android:id="@+id/addGroupOpBut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="19dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginTop="15dp"
+                app:srcCompat="@drawable/ic_plus" />
+
+
+            <ListView
+                android:id="@+id/groupListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="57dp">
+
+            </ListView>
 
         </RelativeLayout>
 
@@ -160,19 +136,6 @@
                 android:layout_marginTop="19dp"
                 app:srcCompat="@drawable/ic_plus" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="69dp"
-                android:text="@string/label_empty_list"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
 
             <ListView
                 android:id="@+id/profileListView"
@@ -183,6 +146,37 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="57dp"/>
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/myProfileRelLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/myNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/myProfilePicButton"
+                android:layout_marginBottom="22dp"
+                android:layout_marginLeft="83dp"
+                android:layout_marginStart="83dp"
+                android:layout_toEndOf="@+id/myProfilePicButton"
+                android:layout_toRightOf="@+id/myProfilePicButton"
+                android:text="TextView"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/myProfilePicButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="39dp"
+                android:layout_marginStart="39dp"
+                android:layout_marginTop="95dp"
+                app:srcCompat="@mipmap/ic_launcher_round" />
         </RelativeLayout>
 
     </ViewFlipper>

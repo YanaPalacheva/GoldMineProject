@@ -13,4 +13,16 @@ public class MyCurrency extends RealmObject {
     @PrimaryKey String id = UUID.randomUUID().toString();
     String name;
     double rate;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public double getRate() {
+        return rate;
+    }
 }
