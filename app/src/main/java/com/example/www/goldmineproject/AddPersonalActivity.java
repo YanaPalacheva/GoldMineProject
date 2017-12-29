@@ -56,12 +56,13 @@ public class AddPersonalActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Double val;
+                Double value;
                 if (myPlusBut.isSelected()) {
-                    val = Double.parseDouble(total.getText().toString());
+                    value = Double.valueOf(total.getText().toString());
                 } else {
-                    val = -Double.parseDouble(total.getText().toString());
+                    value = -Double.valueOf(total.getText().toString());
                 }
+                final Double val = value;
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
