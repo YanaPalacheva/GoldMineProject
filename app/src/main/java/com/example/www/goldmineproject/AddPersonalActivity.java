@@ -33,8 +33,8 @@ public class AddPersonalActivity extends AppCompatActivity {
                 .build();
         final Realm realm = Realm.getInstance(config);
         Button addButton = findViewById(R.id.add);
-        RadioButton myMinusBut = findViewById(R.id.myMinus);
-        RadioButton myPlusBut = findViewById(R.id.myPlus);
+        final RadioButton myMinusBut = findViewById(R.id.myMinus);
+        final RadioButton myPlusBut = findViewById(R.id.myPlus);
         myPlusBut.setSelected(true);
 
         final Spinner users = findViewById(R.id.personalSpinner);
@@ -56,6 +56,12 @@ public class AddPersonalActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final Double val;
+                if (myPlusBut.isSelected()) {
+                    val = Double.parseDouble(total.getText().toString());
+                } else {
+                    val = -Double.parseDouble(total.getText().toString());
+                }
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
@@ -67,7 +73,7 @@ public class AddPersonalActivity extends AppCompatActivity {
                                 .equalTo("name", curr.getSelectedItem().toString())
                                 .findFirst();
                         userOp.setCurrency(currency);
-                        userOp.setValue(Double.parseDouble(total.getText().toString()));
+                        userOp.setValue(val);
                         userOp.setUser(user);
                         realm.copyToRealm(userOp);
                         boolean found = false;
