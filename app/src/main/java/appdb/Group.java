@@ -14,7 +14,7 @@ public class Group extends RealmObject {
     @PrimaryKey String id = UUID.randomUUID().toString();
     String name;
     byte[] pic;
-    RealmList<CurVal> total;
+    RealmList<CurTotal> total;
     RealmList<User> userList;
 
     public byte[] getPic() {
@@ -29,7 +29,7 @@ public class Group extends RealmObject {
         return name;
     }
 
-    public RealmList<CurVal> getTotal() {
+    public RealmList<CurTotal> getTotal() {
         return total;
     }
 
@@ -45,7 +45,7 @@ public class Group extends RealmObject {
         this.pic = pic;
     }
 
-    public void setTotal(RealmList<CurVal> total) {
+    public void setTotal(RealmList<CurTotal> total) {
         this.total = total;
     }
 

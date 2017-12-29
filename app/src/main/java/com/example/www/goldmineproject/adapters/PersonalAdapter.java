@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.www.goldmineproject.MainActivity;
@@ -61,22 +60,46 @@ public class PersonalAdapter  extends BaseAdapter {
             holder.tvTotal = vi.findViewById(R.id.tvTotalPersonal);
             vi.setTag(holder);
         } else {
-            // View recycled !
-            // no need to inflate
-            // no need to findViews by id
             holder = (PersonalAdapter.ViewHolder) vi.getTag();
         }
         User item = getItem(position);
+        /*RealmResults<UserOp> userOps = realm.where(UserOp.class)
+                .equalTo("userID", user.getId()).findAll();
+        List<CurVal> userCurVals = user.getTotalList();
+        for (UserOp op: userOps) {
+            boolean found = false;
+            for (CurVal val: userCurVals) {
+                if (!found & val.getCurrency().getName().equals
+                        (op.getCurVal().getCurrency().getName())) {
+                    val.setValue(val.getValue() + op.getCurVal().getValue());
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                listCurVal.add(op.getCurVal());
+            }
+        }
+        final List<CurVal> finList = listCurVal;
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                itemFin.getTotalList().addAll(finList);
+                realm.insertOrUpdate(itemFin);
+            }
+        });
+
+        item = realm.where(User.class).equalTo("id", itemFin.getId()).findFirst();*/
         holder.tvName.setText(item.getName());
         //if (item.getTotal() != null) {
-            holder.tvTotal.setText("~"+String.valueOf(item.getTotal())+" р.");
+        String tot = "~"+String.valueOf(item.getTotal())+" р.";
+            holder.tvTotal.setText(tot);
         //}
         if (item.getPic() != null) {
             holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
         }
         return vi;
     }
-
 
     static class ViewHolder {
         TextView tvName;

@@ -43,7 +43,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH) % 8 + 1;
-        String text = realm.where(Tips.class).equalTo("id", day).findAll().get(0).getTip();
+        String text = realm.where(Tips.class).equalTo("id", day).findFirst().getTip();
 
         NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(
                 context).setSmallIcon(R.mipmap.ic_launcher)

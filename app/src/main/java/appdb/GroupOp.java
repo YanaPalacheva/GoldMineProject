@@ -12,7 +12,8 @@ import io.realm.annotations.PrimaryKey;
 public class GroupOp extends RealmObject {
     @PrimaryKey String id = UUID.randomUUID().toString();
     Group group;
-    CurVal curVal;
+    MyCurrency currency;
+    double value;
     String commentary;
     User source;
     User target;

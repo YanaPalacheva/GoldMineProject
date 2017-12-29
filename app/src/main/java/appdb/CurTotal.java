@@ -1,17 +1,28 @@
 package appdb;
 
-import java.util.Currency;
+import java.util.UUID;
 
-import io.realm.RealmModel;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-/**
- * Created by www on 20.12.2017.
- */
-
-public class CurVal extends RealmObject {
+public class CurTotal extends RealmObject {
+    @PrimaryKey
+    String id = UUID.randomUUID().toString();
     MyCurrency currency;
     double value;
+    User user;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public void setCurrency(MyCurrency currency) {
         this.currency = currency;

@@ -18,6 +18,10 @@ public class MyCurrency extends RealmObject {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setRate(double rate) {
         this.rate = rate;
     }

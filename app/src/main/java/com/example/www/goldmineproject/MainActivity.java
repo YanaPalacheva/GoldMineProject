@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,19 +34,24 @@ import com.example.www.goldmineproject.adapters.PersonalAdapter;
 import com.example.www.goldmineproject.adapters.ProfileAdapter;
 import com.mvc.imagepicker.ImagePicker;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import appdb.CurTotal;
 import appdb.Group;
+import appdb.MyAccount;
 import appdb.MyCurrency;
 import appdb.Tips;
 import appdb.User;
+import appdb.UserOp;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private Realm realm;
     private Bitmap file;
     private CircleImageView myProfilePic;
+    private boolean profile = false;
 
     public Realm getRealm() {
         return realm;
@@ -71,23 +79,25 @@ public class MainActivity extends AppCompatActivity {
                     .build();
             realm = Realm.getInstance(config);
 
-        //putStuffInRealm(realm);
-        //putTipsInRealm(realm);
+        if (!profile) createProfile();
+
+        putStuffInRealm(realm);
+        putTipsInRealm(realm);
 
         /*
-ЗАПРОСЫ
+        ЗАПРОСЫ
 
-RealmQuery<User> query = realm.where(User.class);
+        RealmQuery<User> query = realm.where(User.class);
 
-// Add query conditions:
-query.equalTo("name", "John");
-query.or().equalTo("name", "Peter");
+        // Add query conditions:
+        query.equalTo("name", "John");
+        query.or().equalTo("name", "Peter");
 
-// Execute the query:
-RealmResults<User> result1 = query.findAll();
+        // Execute the query:
+        RealmResults<User> result1 = query.findAll();
 
-// Or alternatively do the same all at once (the "Fluent interface"):
-RealmResults<User> result2 = realm.where(User.class)
+        // Or alternatively do the same all at once (the "Fluent interface"):
+        RealmResults<User> result2 = realm.where(User.class)
                                   .equalTo("name", "John")
                                   .or()
                                   .equalTo("name", "Peter")
@@ -125,18 +135,17 @@ RealmResults<User> result2 = realm.where(User.class)
                 }
             });
 
-            ListView profileListView = findViewById(R.id.profileListView);
-            ProfileAdapter profileAdapter = new ProfileAdapter(this, realm.where(User.class).findAll());
+        ListView profileListView = findViewById(R.id.profileListView);
+        ProfileAdapter profileAdapter = new ProfileAdapter(this, realm.where(User.class).findAll());
             profileListView.setAdapter(profileAdapter);
 
-            ListView personalListView = findViewById(R.id.personalListView);
-            PersonalAdapter personalAdapter = new PersonalAdapter(this, realm.where(User.class).findAll());
+        ListView personalListView = findViewById(R.id.personalListView);
+        PersonalAdapter personalAdapter = new PersonalAdapter(this, realm.where(User.class).findAll());
             personalListView.setAdapter(personalAdapter);
 
-            ListView groupListView = findViewById(R.id.groupListView);
-            GroupAdapter groupAdapter = new GroupAdapter(this, realm.where(Group.class).findAll());
+        ListView groupListView = findViewById(R.id.groupListView);
+        GroupAdapter groupAdapter = new GroupAdapter(this, realm.where(Group.class).findAll());
             groupListView.setAdapter(groupAdapter);
-
 
             ImageView personalFAB = findViewById(R.id.addPersAccBut);
             personalFAB.setOnClickListener(new View.OnClickListener() {
@@ -167,8 +176,12 @@ RealmResults<User> result2 = realm.where(User.class)
         myProfilePic = findViewById(R.id.myProfilePicButton);
         if (savedInstanceState != null) {
             file = savedInstanceState.getParcelable("bitmap");
-            myProfilePic.setImageBitmap(file);
+        } else {
+            byte[] pic = realm.where(MyAccount.class).findFirst().getPic();
+            if (pic != null)
+                file = BitmapFactory.decodeByteArray(pic, 0, pic.length);
         }
+        myProfilePic.setImageBitmap(file);
         myProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,6 +194,21 @@ RealmResults<User> result2 = realm.where(User.class)
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
+    }
+
+    public void createProfile(){
+        MyAccount myProfile = realm.where(MyAccount.class).findFirst();
+        if (myProfile == null) {
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    final MyAccount user = new MyAccount();
+                    user.setName(String.valueOf(R.string.title_activity_myprofile));
+                    realm.insertOrUpdate(user);
+                }
+            });
+        }
+        profile = true;
     }
 
     /*TODO: settings activity, enable/disable notifications
@@ -199,7 +227,19 @@ RealmResults<User> result2 = realm.where(User.class)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         file = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
-        myProfilePic.setImageBitmap(file);
+        if (file != null) {
+            myProfilePic.setImageBitmap(file);
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    final MyAccount myProfile = realm.where(MyAccount.class).findFirst();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    file.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    myProfile.setPic(stream.toByteArray());
+                    realm.insertOrUpdate(myProfile);
+                }
+            });
+        }
     }
 
     public void onPickImage(View view) {
@@ -214,21 +254,24 @@ RealmResults<User> result2 = realm.where(User.class)
     }
 
     private void putStuffInRealm(Realm realm){
+        RealmResults<MyCurrency> list = realm.where(MyCurrency.class).findAll();
+        if (list != null && !list.isEmpty())
+            return;
         final MyCurrency rub = new MyCurrency();
-        rub.setName("RUB");
-        rub.setRate(1);
         final MyCurrency usd = new MyCurrency();
-        usd.setName("USD");
-        usd.setRate(56.6);
         final MyCurrency eur = new MyCurrency();
-        eur.setName("EUR");
-        eur.setRate(65.96);
         final MyCurrency czk = new MyCurrency();
-        czk.setName("CZK");
-        czk.setRate(2.58);
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
+                rub.setName("RUB");
+                rub.setRate(1);
+                usd.setName("USD");
+                usd.setRate(56.6);
+                eur.setName("EUR");
+                eur.setRate(65.96);
+                czk.setName("CZK");
+                czk.setRate(2.58);
                 realm.copyToRealm(rub);
                 realm.copyToRealm(usd);
                 realm.copyToRealm(eur);
@@ -238,6 +281,9 @@ RealmResults<User> result2 = realm.where(User.class)
     }
 
     private void putTipsInRealm(Realm realm){
+        RealmResults<Tips> list = realm.where(Tips.class).findAll();
+        if (list != null && !list.isEmpty())
+            return;
         final Tips tip1 = new Tips();
         final Tips tip2 = new Tips();
         final Tips tip3 = new Tips();

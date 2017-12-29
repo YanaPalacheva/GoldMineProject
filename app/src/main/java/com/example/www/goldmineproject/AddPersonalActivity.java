@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import appdb.CurVal;
+import appdb.CurTotal;
 import appdb.MyCurrency;
 import appdb.User;
 import appdb.UserOp;
@@ -56,22 +56,35 @@ public class AddPersonalActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final  User user = realm.where(User.class)
-                        .equalTo("name", users.getSelectedItem().toString())
-                        .findFirst();
-                final UserOp userOp = new UserOp();
-                final MyCurrency currency = realm.where(MyCurrency.class)
-                        .equalTo("name", curr.getSelectedItem().toString())
-                        .findFirst();
-                final CurVal curVal = new CurVal();
-                curVal.setCurrency(currency);
-                curVal.setValue(Double.parseDouble(total.getText().toString()));
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
+                        final  User user = realm.where(User.class)
+                                .equalTo("name", users.getSelectedItem().toString())
+                                .findFirst();
+                        final UserOp userOp = new UserOp();
+                        final MyCurrency currency = realm.where(MyCurrency.class)
+                                .equalTo("name", curr.getSelectedItem().toString())
+                                .findFirst();
+                        userOp.setCurrency(currency);
+                        userOp.setValue(Double.parseDouble(total.getText().toString()));
                         userOp.setUser(user);
-                        userOp.setCurVal(curVal);
                         realm.copyToRealm(userOp);
+                        boolean found = false;
+                        for (CurTotal curTotal: user.getTotalList()) {
+                            if (userOp.getCurrency().getName().equals(curTotal.getCurrency().getName())) {
+                                curTotal.setValue(curTotal.getValue()+userOp.getValue());
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            CurTotal curTotal = new CurTotal();
+                            curTotal.setUser(user);
+                            curTotal.setCurrency(userOp.getCurrency());
+                            curTotal.setValue(userOp.getValue());
+                            user.getTotalList().add(curTotal);
+                        }
                     }
                 });
                 Intent intent = new Intent(AddPersonalActivity.this, MainActivity.class);

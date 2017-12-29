@@ -21,7 +21,7 @@ public class User extends RealmObject {
     @PrimaryKey String id = UUID.randomUUID().toString();
     String name;
     byte[] pic;
-    RealmList<CurVal> total;
+    RealmList<CurTotal> total;
 
     public void setName(String name) {
         this.name = name;
@@ -39,11 +39,23 @@ public class User extends RealmObject {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public double getTotal() {
         double apprSum=0;
-        for (CurVal cv: total)
+        for (CurTotal cv: total)
             apprSum+=cv.getValue()*cv.getCurrency().getRate();
         return apprSum;
+    }
+
+    public RealmList<CurTotal> getTotalList() {
+        return total;
+    }
+
+    public void setTotal(RealmList<CurTotal> total) {
+        this.total = total;
     }
 
     public String getName() {

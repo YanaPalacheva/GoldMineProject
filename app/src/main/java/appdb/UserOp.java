@@ -12,15 +12,36 @@ import io.realm.annotations.PrimaryKey;
 public class UserOp extends RealmObject {
     @PrimaryKey String id = UUID.randomUUID().toString();
     User user;
-    CurVal curVal;
+    MyCurrency currency;
+    double value;
     String commentary;
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public void setCurVal(CurVal curVal) {
-        this.curVal = curVal;
+    public User getUser() {
+        return user;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public MyCurrency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(MyCurrency currency) {
+        this.currency = currency;
     }
 
     public void setCommentary(String commentary) {
