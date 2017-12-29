@@ -8,25 +8,19 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
+        android:layout_height="508dp"
+        tools:layout_editor_absoluteX="119dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/groupParticCountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView2"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/textView2"
-            android:layout_toRightOf="@+id/textView2"
-            android:text="0"
-            android:textAlignment="textEnd"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_gravity="end" />
+        <ListView
+            android:id="@+id/usersSelected"
+            android:layout_width="368dp"
+            android:layout_height="162dp"
+            android:layout_above="@+id/add"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="11dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="214dp" />
 
         <TextView
             android:id="@+id/textView4"
@@ -38,44 +32,24 @@
             android:text="Имя группы"
             android:textSize="24sp" />
 
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="371dp"
-            android:layout_height="136dp"
-            android:layout_below="@+id/textView"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imageView"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_above="@+id/textView"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="36dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="86dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
-        </HorizontalScrollView>
-
-        <Button
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/horizontalScrollView"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/horizontalScrollView"
-            android:layout_marginBottom="17dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:text="Создать"
-            tools:layout_editor_absoluteX="247dp"
-            tools:layout_editor_absoluteY="428dp" />
+            android:layout_marginBottom="11dp"
+            android:background="@drawable/blank_profile"
+            app:civ_border_color="@color/circleBorder"
+            app:civ_border_width="2dp" />
 
         <Spinner
             android:id="@+id/groupParticSpinner"
             android:layout_width="232dp"
             android:layout_height="28dp"
-            android:layout_alignEnd="@+id/horizontalScrollView"
-            android:layout_alignRight="@+id/horizontalScrollView"
-            android:layout_below="@+id/editGroupName"
-            android:layout_marginTop="42dp"
+            android:layout_alignBottom="@+id/textView"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="41dp" />
 
@@ -83,11 +57,10 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/groupParticSpinner"
-            android:layout_marginLeft="42dp"
-            android:layout_marginStart="42dp"
+            android:layout_above="@+id/usersSelected"
+            android:layout_marginBottom="14dp"
+            android:layout_toLeftOf="@+id/imageView"
+            android:layout_toStartOf="@+id/imageView"
             android:text="Добавить:"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="25dp"
@@ -105,16 +78,19 @@
             android:textAlignment="center"
             android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/textView2"
+        <Button
+            android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/add"
-            android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView"
-            android:layout_marginBottom="27dp"
-            android:text="Участников: "
-            android:textSize="24sp" />
+            android:layout_alignEnd="@+id/usersSelected"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/usersSelected"
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:text="Создать"
+            tools:layout_editor_absoluteX="247dp"
+            tools:layout_editor_absoluteY="428dp" />
 
     </RelativeLayout>
 

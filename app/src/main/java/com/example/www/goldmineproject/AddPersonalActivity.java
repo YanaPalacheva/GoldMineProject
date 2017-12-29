@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -33,9 +34,9 @@ public class AddPersonalActivity extends AppCompatActivity {
                 .build();
         final Realm realm = Realm.getInstance(config);
         Button addButton = findViewById(R.id.add);
-        final RadioButton myMinusBut = findViewById(R.id.myMinus);
+       final RadioButton myMinusBut = findViewById(R.id.myMinus);
         final RadioButton myPlusBut = findViewById(R.id.myPlus);
-        myPlusBut.setSelected(true);
+       final RadioGroup radioGroupDebt = findViewById(R.id.radioGroup2);
 
         final Spinner users = findViewById(R.id.personalSpinner);
         final Spinner curr = findViewById(R.id.spinnerCurrency);
@@ -57,7 +58,7 @@ public class AddPersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Double value;
-                if (myPlusBut.isSelected()) {
+                if (radioGroupDebt.getCheckedRadioButtonId()==(myPlusBut.getId())) {
                     value = Double.valueOf(total.getText().toString());
                 } else {
                     value = -Double.valueOf(total.getText().toString());

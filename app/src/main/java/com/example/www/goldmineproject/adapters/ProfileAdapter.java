@@ -17,6 +17,7 @@ import java.util.List;
 import appdb.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.realm.Realm;
+import io.realm.RealmList;
 
 /**
  * Created by www on 20.12.2017.
@@ -26,10 +27,11 @@ public class ProfileAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private List<User> mData;
     private Realm realm;
-    public ProfileAdapter(Context context, List data){
+    public ProfileAdapter(Context context, List data, Realm realm){
         mData = data;
         mLayoutInflater = LayoutInflater.from(context);
-        realm = ((MainActivity)context).getRealm();
+        //realm = ((MainActivity)context).getRealm();
+        this.realm = realm;
     }
     @Override
     public int getCount() {

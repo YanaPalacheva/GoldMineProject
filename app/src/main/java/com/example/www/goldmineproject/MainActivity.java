@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
         ListView profileListView = findViewById(R.id.profileListView);
-        ProfileAdapter profileAdapter = new ProfileAdapter(this, realm.where(User.class).findAll());
+        ProfileAdapter profileAdapter = new ProfileAdapter(this, realm.where(User.class).findAll(), realm);
             profileListView.setAdapter(profileAdapter);
 
         ListView personalListView = findViewById(R.id.personalListView);

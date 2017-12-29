@@ -25,11 +25,13 @@ public class PersonalAdapter  extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private List<User> mData;
     private Realm realm;
+    private Context context;
 
     public PersonalAdapter(Context context, List data) {
         mData = data;
         mLayoutInflater = LayoutInflater.from(context);
         realm = ((MainActivity) context).getRealm();
+        this.context = context;
     }
 
     @Override
@@ -63,37 +65,14 @@ public class PersonalAdapter  extends BaseAdapter {
             holder = (PersonalAdapter.ViewHolder) vi.getTag();
         }
         User item = getItem(position);
-        /*RealmResults<UserOp> userOps = realm.where(UserOp.class)
-                .equalTo("userID", user.getId()).findAll();
-        List<CurVal> userCurVals = user.getTotalList();
-        for (UserOp op: userOps) {
-            boolean found = false;
-            for (CurVal val: userCurVals) {
-                if (!found & val.getCurrency().getName().equals
-                        (op.getCurVal().getCurrency().getName())) {
-                    val.setValue(val.getValue() + op.getCurVal().getValue());
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                listCurVal.add(op.getCurVal());
-            }
-        }
-        final List<CurVal> finList = listCurVal;
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                itemFin.getTotalList().addAll(finList);
-                realm.insertOrUpdate(itemFin);
-            }
-        });
-
-        item = realm.where(User.class).equalTo("id", itemFin.getId()).findFirst();*/
         holder.tvName.setText(item.getName());
         //if (item.getTotal() != null) {
-        String tot = "~"+String.valueOf(item.getTotal())+" р.";
+        String tot = "~"+String.valueOf(item.getTotal());
             holder.tvTotal.setText(tot);
+        if (item.getTotal()<0)
+            holder.tvTotal.setTextColor(context.getResources().getColor(R.color.minusBalance));
+        else
+            holder.tvTotal.setTextColor(context.getResources().getColor(R.color.plusBalance));
         //}
         if (item.getPic() != null) {
             holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
