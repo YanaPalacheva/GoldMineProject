@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/ivImageGroup"
+        android:id="@+id/ivImageGrop"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentLeft="true"
@@ -22,8 +22,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
-        android:layout_toEndOf="@+id/ivImageGroup"
-        android:layout_toRightOf="@+id/ivImageGroup"
+        android:layout_toEndOf="@+id/ivImageGrop"
+        android:layout_toRightOf="@+id/ivImageGrop"
         android:text="GroupName"
         android:textSize="30sp" />
 

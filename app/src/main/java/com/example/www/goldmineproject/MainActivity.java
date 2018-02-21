@@ -23,10 +23,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.www.goldmineproject.adapters.GroupAdapter;
@@ -146,6 +148,16 @@ public class MainActivity extends AppCompatActivity {
         ListView groupListView = findViewById(R.id.groupListView);
         GroupAdapter groupAdapter = new GroupAdapter(this, realm.where(Group.class).findAll());
             groupListView.setAdapter(groupAdapter);
+
+        personalListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Intent intent = new Intent(MainActivity.this, PersonalOpActivity.class);
+                startActivity(intent);
+            }
+        });
 
             ImageView personalFAB = findViewById(R.id.addPersAccBut);
             personalFAB.setOnClickListener(new View.OnClickListener() {

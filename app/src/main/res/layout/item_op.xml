@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvOpComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_toEndOf="@+id/ivImageGrop"
+        android:layout_toRightOf="@+id/ivImageGrop"
+        android:text="Comment"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvOpCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:text="Cur"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvOpValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvOpCurrency"
+        android:layout_alignBottom="@+id/tvOpCurrency"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/tvOpCurrency"
+        android:layout_toStartOf="@+id/tvOpCurrency"
+        android:fontFamily="g"
+        android:paddingTop="0dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="24sp" />
+
+</RelativeLayout>

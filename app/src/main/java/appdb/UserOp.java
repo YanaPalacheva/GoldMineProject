@@ -47,4 +47,8 @@ public class UserOp extends RealmObject {
     public void setCommentary(String commentary) {
         this.commentary = commentary;
     }
+
+    public String getCommentary() {
+        return commentary;
+    }
 }

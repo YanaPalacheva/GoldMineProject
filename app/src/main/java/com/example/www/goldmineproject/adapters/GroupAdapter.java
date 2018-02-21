@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.www.goldmineproject.MainActivity;
@@ -57,7 +56,7 @@ public class GroupAdapter extends BaseAdapter {
             vi = mLayoutInflater.inflate(R.layout.item_group, parent, false);
             holder = new GroupAdapter.ViewHolder();
             holder.tvName = vi.findViewById(R.id.tvTextGroup);
-            holder.ivImage = vi.findViewById(R.id.ivImageGroup);
+            holder.ivImage = vi.findViewById(R.id.ivImageGrop);
             //holder.tvTotal = vi.findViewById(R.id.tvTotalGroup);
             vi.setTag(holder);
         } else {
