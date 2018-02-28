@@ -218,8 +218,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView groupTextView = (TextView) p.findViewById(R.id.tvTextGroup);
                 final String task = String.valueOf(groupTextView.getText());
                 AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Удаление группы")
-                        .setMessage("Вы действительно хотите удалить группу?")
+                        .setTitle("Удаление/изменение группы")
+                        .setMessage("Вы действительно хотите удалить/изменить группу?")
                         .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -234,6 +234,14 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
                                 }
+                            }
+                        })
+                        .setNeutralButton("Изменить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent=new Intent(MainActivity.this, EditGroupActivity.class);
+                                intent.putExtra("name", task);
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("Отмена", null)
@@ -254,8 +262,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView groupTextView=(TextView) p.findViewById(R.id.tvTextPersonal);
                 final String task = String.valueOf(groupTextView.getText());
                 AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Удаление личного счета")
-                        .setMessage("Вы действительно хотите удалить личный счет?")
+                        .setTitle("Удаление/изменение личного счета")
+                        .setMessage("Вы действительно хотите удалить/изменить личный счет?")
                         .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -270,6 +278,14 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
                                 }
+                            }
+                        })
+                        .setNeutralButton("Изменить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent=new Intent(MainActivity.this, EditPersonalActivity.class);
+                                intent.putExtra("name", task);
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("Отмена", null)
@@ -290,8 +306,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView groupTextView=(TextView) p.findViewById(R.id.tvTextProfile);
                 final String task = String.valueOf(groupTextView.getText());
                 AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Удаление профиля")
-                        .setMessage("Вы действительно хотите удалить профиль?")
+                        .setTitle("Удаление/изменение профиля")
+                        .setMessage("Вы действительно хотите удалить/изменить профиль?")
                         .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -306,6 +322,14 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
                                 }
+                            }
+                        })
+                        .setNeutralButton("Изменить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent=new Intent(MainActivity.this, EditProfileActivity.class);
+                                intent.putExtra("name", task);
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("Отмена", null)

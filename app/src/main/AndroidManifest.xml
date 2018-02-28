@@ -25,6 +25,9 @@
         <activity android:name=".AddGroupActivity" />
         <activity android:name=".AddPersonalActivity" />
         <activity android:name=".AddProfileActivity" />
+        <activity android:name=".EditGroupActivity"/>
+        <activity android:name=".EditPersonalActivity"/>
+        <activity android:name=".EditProfileActivity"/>
         <activity android:name=".PersonalOpActivity" />
         <activity android:name=".TipDialogActivity"
             android:theme="@android:style/Theme.Dialog" />
