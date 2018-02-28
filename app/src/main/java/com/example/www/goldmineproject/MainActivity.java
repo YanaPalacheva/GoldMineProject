@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
             ImageView personalFAB = findViewById(R.id.addPersAccBut);
             personalFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
