@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -138,15 +140,15 @@ public class MainActivity extends AppCompatActivity {
             });
 
         ListView profileListView = findViewById(R.id.profileListView);
-        ProfileAdapter profileAdapter = new ProfileAdapter(this, realm.where(User.class).findAll(), realm);
+        final ProfileAdapter profileAdapter = new ProfileAdapter(this, realm.where(User.class).findAll(), realm);
             profileListView.setAdapter(profileAdapter);
 
         ListView personalListView = findViewById(R.id.personalListView);
-        PersonalAdapter personalAdapter = new PersonalAdapter(this, realm.where(User.class).findAll());
+        final PersonalAdapter personalAdapter = new PersonalAdapter(this, realm.where(User.class).findAll());
             personalListView.setAdapter(personalAdapter);
 
         ListView groupListView = findViewById(R.id.groupListView);
-        GroupAdapter groupAdapter = new GroupAdapter(this, realm.where(Group.class).findAll());
+        final GroupAdapter groupAdapter = new GroupAdapter(this, realm.where(Group.class).findAll());
             groupListView.setAdapter(groupAdapter);
 
         personalListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
             ImageView personalFAB = findViewById(R.id.addPersAccBut);
             personalFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -205,6 +208,114 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
+
+        ListView listGroup = (ListView)findViewById(R.id.groupListView);
+        listGroup.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                View p = (View) view.getParent();
+                TextView groupTextView = (TextView) p.findViewById(R.id.tvTextGroup);
+                final String task = String.valueOf(groupTextView.getText());
+                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Удаление группы")
+                        .setMessage("Вы действительно хотите удалить группу?")
+                        .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                final RealmResults<Group> result = realm.where(Group.class).equalTo("name", task).findAll();
+                                if (result.isValid() && !result.isEmpty()) {
+                                    realm.executeTransaction(new Realm.Transaction() {
+                                        @Override
+                                        public void execute(Realm realm) {
+                                            result.deleteAllFromRealm();
+                                            groupAdapter.notifyDataSetChanged();
+                                            groupAdapter.notifyDataSetInvalidated();
+                                        }
+                                    });
+                                }
+                            }
+                        })
+                        .setNegativeButton("Отмена", null)
+                        .create();
+                dialog.show();
+
+                return true;
+
+            }
+        });
+
+        ListView listPersonal = (ListView)findViewById(R.id.personalListView);
+        listPersonal.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                View p= (View) view.getParent();
+                TextView groupTextView=(TextView) p.findViewById(R.id.tvTextPersonal);
+                final String task = String.valueOf(groupTextView.getText());
+                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Удаление личного счета")
+                        .setMessage("Вы действительно хотите удалить личный счет?")
+                        .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                final RealmResults<User> result = realm.where(User.class).equalTo("name", task).findAll();
+                                if(result.isValid()&&!result.isEmpty()) {
+                                    realm.executeTransaction(new Realm.Transaction() {
+                                        @Override
+                                        public void execute(Realm realm) {
+                                            result.deleteAllFromRealm();
+                                            personalAdapter.notifyDataSetChanged();
+                                            personalAdapter.notifyDataSetInvalidated();
+                                        }
+                                    });
+                                }
+                            }
+                        })
+                        .setNegativeButton("Отмена", null)
+                        .create();
+                dialog.show();
+
+                return true;
+
+            }
+        });
+
+        ListView listProfile = (ListView)findViewById(R.id.profileListView);
+        listProfile.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                View p= (View) view.getParent();
+                TextView groupTextView=(TextView) p.findViewById(R.id.tvTextProfile);
+                final String task = String.valueOf(groupTextView.getText());
+                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Удаление профиля")
+                        .setMessage("Вы действительно хотите удалить профиль?")
+                        .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                final RealmResults<User> result = realm.where(User.class).equalTo("name", task).findAll();
+                                if(result.isValid()&&!result.isEmpty()) {
+                                    realm.executeTransaction(new Realm.Transaction() {
+                                        @Override
+                                        public void execute(Realm realm) {
+                                            result.deleteAllFromRealm();
+                                            profileAdapter.notifyDataSetChanged();
+                                            profileAdapter.notifyDataSetInvalidated();
+                                        }
+                                    });
+                                }
+                            }
+                        })
+                        .setNegativeButton("Отмена", null)
+                        .create();
+                dialog.show();
+
+                return true;
+
+            }
+        });
     }
 
     public void createProfile(){

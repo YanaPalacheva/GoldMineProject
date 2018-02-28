@@ -24,7 +24,8 @@
         </activity>
         <activity android:name=".AddGroupActivity" />
         <activity android:name=".AddPersonalActivity" />
-        <activity android:name=".AddProfileActivity"></activity>
+        <activity android:name=".AddProfileActivity" />
+        <activity android:name=".PersonalOpActivity" />
         <activity android:name=".TipDialogActivity"
             android:theme="@android:style/Theme.Dialog" />
         <receiver android:name=".AlarmReceiver"/>

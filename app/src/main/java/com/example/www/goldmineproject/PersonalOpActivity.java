@@ -30,6 +30,7 @@ import com.mvc.imagepicker.ImagePicker;
 
 import java.io.ByteArrayOutputStream;
 
+import appdb.CurTotal;
 import appdb.Group;
 import appdb.MyAccount;
 import appdb.MyCurrency;
@@ -67,8 +68,8 @@ public class PersonalOpActivity extends AppCompatActivity {
         realm = Realm.getInstance(config);
 
         setContentView(R.layout.activity_personal_op);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         title = findViewById(R.id.title);
 
         ListView opListView = findViewById(R.id.persOp);
@@ -76,7 +77,7 @@ public class PersonalOpActivity extends AppCompatActivity {
         opListView.setAdapter(opAdapter);
 
         ListView finSumListView = findViewById(R.id.persOpFinSum);
-        FinSumAdapter finSumAdapter = new FinSumAdapter(this, realm.where(MyCurrency.class).findAll());
+        FinSumAdapter finSumAdapter = new FinSumAdapter(this, realm.where(CurTotal.class).findAll());
         finSumListView.setAdapter(finSumAdapter);
 
         ImagePicker.setMinQuality(600, 600);
@@ -88,13 +89,13 @@ public class PersonalOpActivity extends AppCompatActivity {
             if (pic != null)
                 file = BitmapFactory.decodeByteArray(pic, 0, pic.length);
         }
-        myProfilePic.setImageBitmap(file);
-        myProfilePic.setOnClickListener(new View.OnClickListener() {
+       // myProfilePic.setImageBitmap(file);
+       /*myProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onPickImage(view);
             }
-        });
+        });*/
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);

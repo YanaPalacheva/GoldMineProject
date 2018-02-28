@@ -28,7 +28,7 @@ public class FinSumAdapter extends BaseAdapter {
     public FinSumAdapter(Context context, List data){
         mData = data;
         mLayoutInflater = LayoutInflater.from(context);
-        realm = ((MainActivity) context).getRealm();
+        //realm = ((MainActivity) context).getRealm();
         this.context = context;
     }
     @Override
