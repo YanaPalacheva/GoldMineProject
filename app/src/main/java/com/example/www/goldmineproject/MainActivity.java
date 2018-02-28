@@ -383,6 +383,7 @@ public class MainActivity extends AppCompatActivity {
         final MyCurrency usd = new MyCurrency();
         final MyCurrency eur = new MyCurrency();
         final MyCurrency czk = new MyCurrency();
+
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
