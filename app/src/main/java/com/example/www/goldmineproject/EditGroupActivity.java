@@ -20,5 +20,6 @@ public class EditGroupActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         String groupName=intent.getStringExtra("name");
+
     }
 }
