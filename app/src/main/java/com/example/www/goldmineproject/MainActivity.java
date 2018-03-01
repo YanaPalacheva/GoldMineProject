@@ -231,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                                             result.deleteAllFromRealm();
                                             groupAdapter.notifyDataSetChanged();
                                             groupAdapter.notifyDataSetInvalidated();
+
                                         }
                                     });
                                 }
