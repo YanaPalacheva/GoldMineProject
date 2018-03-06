@@ -22,7 +22,7 @@ public class TipDialogActivity extends Activity {
         setContentView(R.layout.activity_dialog);
 
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .schemaVersion(3)
+                .schemaVersion(4)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm realm = Realm.getInstance(config);
@@ -41,6 +41,5 @@ public class TipDialogActivity extends Activity {
             }
         });
     }
-
 
 }

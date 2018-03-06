@@ -1,12 +1,10 @@
 package com.example.www.goldmineproject;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,18 +20,16 @@ import com.mvc.imagepicker.ImagePicker;
 
 import appdb.CurTotal;
 import appdb.MyAccount;
-import appdb.User;
 import appdb.UserOp;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 /**
- * Created by Либро on 21.02.2018.
+ * Created by Либро on 28.02.2018.
  */
 
-public class PersonalOpActivity extends AppCompatActivity {
-    private BottomNavigationView bottomNavigationView;
+public class ProfileActivity extends AppCompatActivity {
     private TextView title;
     private Realm realm;
     private Bitmap file;
@@ -53,37 +49,29 @@ public class PersonalOpActivity extends AppCompatActivity {
                 .build();
         realm = Realm.getInstance(config);
 
-        setContentView(R.layout.activity_personal_op);
+        setContentView(R.layout.activity_profile);
         title = findViewById(R.id.title);
 
-        Intent intent = getIntent();
-        String user = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        user = realm.where(User.class).equalTo("user", user).findFirst().getId();
-
-        ListView opListView = findViewById(R.id.persOpLV);
-        OpAdapter opAdapter = new OpAdapter(this, realm.where(UserOp.class).equalTo("userid", user).findAll());
+        ListView opListView = findViewById(R.id.profLV);
+        OpAdapter opAdapter = new OpAdapter(this, realm.where(UserOp.class).findAll());
         opListView.setAdapter(opAdapter);
 
-        ListView finSumListView = findViewById(R.id.persOpFinSum);
-        FinSumAdapter finSumAdapter = new FinSumAdapter(this, realm.where(CurTotal.class).equalTo("userid", user).findAll());
-        finSumListView.setAdapter(finSumAdapter);
-
         ImagePicker.setMinQuality(600, 600);
-        myProfilePic = findViewById(R.id.persOpIV);
+        myProfilePic = findViewById(R.id.myProfilePicButton);
         if (savedInstanceState != null) {
             file = savedInstanceState.getParcelable("bitmap");
         } else {
-            byte[] pic = realm.where(User.class).equalTo("id", user).findFirst().getPic();
+            byte[] pic = realm.where(MyAccount.class).findFirst().getPic();
             if (pic != null)
                 file = BitmapFactory.decodeByteArray(pic, 0, pic.length);
         }
-       // myProfilePic.setImageBitmap(file);
-       /*myProfilePic.setOnClickListener(new View.OnClickListener() {
+        myProfilePic.setImageBitmap(file);
+        myProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onPickImage(view);
             }
-        });*/
+        });
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);

@@ -11,17 +11,17 @@ import io.realm.annotations.PrimaryKey;
 
 public class UserOp extends RealmObject {
     @PrimaryKey String id = UUID.randomUUID().toString();
-    User user;
+    String userid;
     MyCurrency currency;
     double value;
     String commentary;
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserid() {
+        return userid;
     }
 
     public String getId() {

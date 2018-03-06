@@ -18,7 +18,7 @@
             android:id="@+id/persOpFinSum"
             android:layout_width="200dp"
             android:layout_height="162dp"
-            android:layout_above="@+id/persOp"
+            android:layout_above="@+id/persOpLV"
             android:layout_alignTop="@+id/imageView"
             android:layout_toLeftOf="@+id/imageView2"
             android:layout_toStartOf="@+id/imageView2" />
@@ -27,16 +27,16 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/persOp"
+            android:layout_alignEnd="@+id/persOpLV"
             android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/persOp"
+            android:layout_alignRight="@+id/persOpLV"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
             app:srcCompat="@drawable/ic_plus" />
 
         <ListView
-            android:id="@+id/persOp"
+            android:id="@+id/persOpLV"
             android:layout_width="match_parent"
             android:layout_height="162dp"
             android:layout_above="@+id/imageView2"
@@ -47,12 +47,12 @@
             tools:layout_editor_absoluteY="214dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/imageView"
+            android:id="@+id/persOpIV"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:layout_alignLeft="@+id/persOp"
+            android:layout_alignLeft="@+id/persOpLV"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/persOp"
+            android:layout_alignStart="@+id/persOpLV"
             android:layout_marginLeft="11dp"
             android:layout_marginStart="11dp"
             android:layout_marginTop="17dp"

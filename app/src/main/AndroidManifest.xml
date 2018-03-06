@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!--кфу зе бест, наш манифест-->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,6 +27,7 @@
         <activity android:name=".AddGroupActivity" />
         <activity android:name=".AddPersonalActivity" />
         <activity android:name=".AddProfileActivity" />
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".EditGroupActivity"/>
         <activity android:name=".EditPersonalActivity"/>
         <activity android:name=".EditProfileActivity"/>

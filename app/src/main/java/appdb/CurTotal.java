@@ -10,14 +10,14 @@ public class CurTotal extends RealmObject {
     String id = UUID.randomUUID().toString();
     MyCurrency currency;
     double value;
-    User user;
+    String userid;
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
-    public User getUser() {
-        return user;
+    public String  getUserid() {
+        return userid;
     }
 
     public String getId() {

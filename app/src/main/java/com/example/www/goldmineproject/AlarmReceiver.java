@@ -36,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .schemaVersion(3)
+                .schemaVersion(4)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm realm = Realm.getInstance(config);

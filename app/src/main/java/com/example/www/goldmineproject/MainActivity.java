@@ -57,6 +57,8 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewFlipper viewFlipper;
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap file;
     private CircleImageView myProfilePic;
     private boolean profile = false;
+    public final static String EXTRA_MESSAGE = "EXTRA_MESSAGE";
 
     public Realm getRealm() {
         return realm;
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
             Realm.init(this);
             RealmConfiguration config = new RealmConfiguration.Builder()
-                    .schemaVersion(3)
+                    .schemaVersion(4)
                     .deleteRealmIfMigrationNeeded()
                     .build();
             realm = Realm.getInstance(config);
@@ -156,7 +159,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
+                View p = (View) arg1.getParent();
+                TextView groupTextView = (TextView) p.findViewById(R.id.tvTextPersonal);
+                final String message = String.valueOf(groupTextView.getText());
                 Intent intent = new Intent(MainActivity.this, PersonalOpActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
+        });
+
+        profileListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
         });

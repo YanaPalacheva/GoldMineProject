@@ -29,7 +29,7 @@ public class AddPersonalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_personal);
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .schemaVersion(3)
+                .schemaVersion(4)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         final Realm realm = Realm.getInstance(config);
@@ -78,7 +78,7 @@ public class AddPersonalActivity extends AppCompatActivity {
                                 .findFirst();
                         userOp.setCurrency(currency);
                         userOp.setValue(val);
-                        userOp.setUser(user);
+                        userOp.setUserid(user.getId());
                         userOp.setCommentary(comm);
                         realm.copyToRealm(userOp);
                         boolean found = false;
@@ -91,7 +91,7 @@ public class AddPersonalActivity extends AppCompatActivity {
                         }
                         if (!found) {
                             CurTotal curTotal = new CurTotal();
-                            curTotal.setUser(user);
+                            curTotal.setUserid(user.getId());
                             curTotal.setCurrency(userOp.getCurrency());
                             curTotal.setValue(userOp.getValue());
                             user.getTotalList().add(curTotal);

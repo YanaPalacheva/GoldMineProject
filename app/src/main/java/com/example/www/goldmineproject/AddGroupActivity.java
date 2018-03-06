@@ -40,7 +40,7 @@ public class AddGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_group);
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .schemaVersion(3)
+                .schemaVersion(4)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         final Realm realm = Realm.getInstance(config);
