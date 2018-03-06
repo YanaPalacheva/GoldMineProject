@@ -34,6 +34,7 @@ public class AddGroupActivity extends AppCompatActivity {
     private CircleImageView imageView;
     private Bitmap file;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

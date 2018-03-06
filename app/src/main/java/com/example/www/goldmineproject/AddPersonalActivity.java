@@ -41,6 +41,7 @@ public class AddPersonalActivity extends AppCompatActivity {
         final Spinner users = findViewById(R.id.personalSpinner);
         final Spinner curr = findViewById(R.id.spinnerCurrency);
         final EditText total = findViewById(R.id.persTotal);
+        final EditText comment = findViewById(R.id.persComment);
 
         RealmResults<User> realmResults = realm.where(User.class).findAll();
         List<User> userList = realm.copyFromRealm(realmResults);
@@ -58,6 +59,7 @@ public class AddPersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Double value;
+                final String comm = comment.getText().toString();
                 if (radioGroupDebt.getCheckedRadioButtonId()==(myPlusBut.getId())) {
                     value = Double.valueOf(total.getText().toString());
                 } else {
@@ -77,6 +79,7 @@ public class AddPersonalActivity extends AppCompatActivity {
                         userOp.setCurrency(currency);
                         userOp.setValue(val);
                         userOp.setUser(user);
+                        userOp.setCommentary(comm);
                         realm.copyToRealm(userOp);
                         boolean found = false;
                         for (CurTotal curTotal: user.getTotalList()) {
