@@ -20,7 +20,7 @@ public class EditGroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setTitle("Изменить групповой счёт");
         Intent intent=getIntent();
         String groupName=intent.getStringExtra("name");
 

@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
                 View p = (View) arg1.getParent();
-                TextView groupTextView = (TextView) p.findViewById(R.id.tvTextPersonal);
-                final String message = String.valueOf(groupTextView.getText());
+                TextView personalTextView = (TextView) p.findViewById(R.id.tvTextPersonal);
+                final String message = realm.where(User.class).equalTo("name", String.valueOf(personalTextView.getText())).findFirst().getId();
                 Intent intent = new Intent(MainActivity.this, PersonalOpActivity.class);
                 intent.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intent);

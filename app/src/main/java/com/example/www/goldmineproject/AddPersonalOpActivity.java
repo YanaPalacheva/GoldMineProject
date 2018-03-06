@@ -1,8 +1,8 @@
 package com.example.www.goldmineproject;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,36 +22,35 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
-public class AddPersonalActivity extends AppCompatActivity {
+/**
+ * Created by Либро on 06.03.2018.
+ */
+
+public class AddPersonalOpActivity extends AppCompatActivity {
+    public final static String EXTRA_MESSAGE = "EXTRA_MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_personal);
-        setTitle("Новый личный счёт");
+        setContentView(R.layout.activity_add_personal_op);
+        setTitle("Новая операция");
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .schemaVersion(4)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         final Realm realm = Realm.getInstance(config);
 
-        Button addButton = findViewById(R.id.add);
-       final RadioButton myMinusBut = findViewById(R.id.myMinus);
-        final RadioButton myPlusBut = findViewById(R.id.myPlus);
-       final RadioGroup radioGroupDebt = findViewById(R.id.radioGroup2);
+        Intent intent = getIntent();
+        final String userid = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
-        final Spinner users = findViewById(R.id.personalSpinner);
+        Button addButton = findViewById(R.id.add);
+        final RadioButton myMinusBut = findViewById(R.id.myMinus);
+        final RadioButton myPlusBut = findViewById(R.id.myPlus);
+        final RadioGroup radioGroupDebt = findViewById(R.id.radioGroup2);
+
         final Spinner curr = findViewById(R.id.spinnerCurrency);
         final EditText total = findViewById(R.id.persTotal);
         final EditText comment = findViewById(R.id.persComment);
-
-        RealmResults<User> realmResults = realm.where(User.class).findAll();
-        List<User> userList = realm.copyFromRealm(realmResults);
-        List<String> userNames = new ArrayList<>();
-        for (User user: userList)
-            userNames.add(user.getName());
-        ArrayAdapter<String> spinUserAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userNames);
-        users.setAdapter(spinUserAdapter);
 
         ArrayAdapter spinCurrAdapter = ArrayAdapter.createFromResource(this, R.array.currs,
                 android.R.layout.simple_spinner_item);
@@ -72,7 +71,7 @@ public class AddPersonalActivity extends AppCompatActivity {
                     @Override
                     public void execute(Realm realm) {
                         final  User user = realm.where(User.class)
-                                .equalTo("name", users.getSelectedItem().toString())
+                                .equalTo("id", userid)
                                 .findFirst();
                         final UserOp userOp = new UserOp();
                         final MyCurrency currency = realm.where(MyCurrency.class)
@@ -100,7 +99,8 @@ public class AddPersonalActivity extends AppCompatActivity {
                         }
                     }
                 });
-                Intent intent = new Intent(AddPersonalActivity.this, MainActivity.class);
+                Intent intent = new Intent(AddPersonalOpActivity.this, PersonalOpActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, userid);
                 startActivity(intent);
             }
         });

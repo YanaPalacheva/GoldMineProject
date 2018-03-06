@@ -56,7 +56,7 @@ public class OpAdapter extends BaseAdapter {
             holder = new OpAdapter.ViewHolder();
             holder.tvComment = vi.findViewById(R.id.tvOpComment);
             holder.tvTotal = vi.findViewById(R.id.tvOpValue);
-            holder.tvCurrency = vi.findViewById(R.id.ivImageProfile);
+            holder.tvCurrency = vi.findViewById(R.id.tvOpCurrency);
             vi.setTag(holder);
         } else {
             holder = (OpAdapter.ViewHolder) vi.getTag();

@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,6 +40,8 @@ public class PersonalOpActivity extends AppCompatActivity {
     private Bitmap file;
     private CircleImageView myProfilePic;
 
+    public final static String EXTRA_MESSAGE = "EXTRA_MESSAGE";
+
     public Realm getRealm() {
         return realm;
     }
@@ -46,7 +49,6 @@ public class PersonalOpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .schemaVersion(4)
                 .deleteRealmIfMigrationNeeded()
@@ -56,16 +58,17 @@ public class PersonalOpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal_op);
         title = findViewById(R.id.title);
 
+
         Intent intent = getIntent();
-        String user = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        user = realm.where(User.class).equalTo("user", user).findFirst().getId();
+        final String userid = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        setTitle(realm.where(User.class).equalTo("id", userid).findFirst().getName());
 
         ListView opListView = findViewById(R.id.persOpLV);
-        OpAdapter opAdapter = new OpAdapter(this, realm.where(UserOp.class).equalTo("userid", user).findAll());
+        OpAdapter opAdapter = new OpAdapter(this, realm.where(UserOp.class).equalTo("userid", userid).findAll());
         opListView.setAdapter(opAdapter);
 
         ListView finSumListView = findViewById(R.id.persOpFinSum);
-        FinSumAdapter finSumAdapter = new FinSumAdapter(this, realm.where(CurTotal.class).equalTo("userid", user).findAll());
+        FinSumAdapter finSumAdapter = new FinSumAdapter(this, realm.where(CurTotal.class).equalTo("userid", userid).findAll());
         finSumListView.setAdapter(finSumAdapter);
 
         ImagePicker.setMinQuality(600, 600);
@@ -73,11 +76,22 @@ public class PersonalOpActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             file = savedInstanceState.getParcelable("bitmap");
         } else {
-            byte[] pic = realm.where(User.class).equalTo("id", user).findFirst().getPic();
+            byte[] pic = realm.where(User.class).equalTo("id", userid).findFirst().getPic();
             if (pic != null)
                 file = BitmapFactory.decodeByteArray(pic, 0, pic.length);
         }
-       // myProfilePic.setImageBitmap(file);
+        myProfilePic.setImageBitmap(file);
+
+        ImageView groupFAB = findViewById(R.id.addPerOp);
+        groupFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PersonalOpActivity.this, AddPersonalOpActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, userid);
+                startActivity(intent);
+            }
+        });
+       //
        /*myProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

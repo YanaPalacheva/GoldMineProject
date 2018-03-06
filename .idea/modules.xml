@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GoldMineProject.iml" filepath="$PROJECT_DIR$/GoldMineProject.iml" />
       <module fileurl="file://C:\Users\Public\GoldMineProject1\GoldMineProject.iml" filepath="C:\Users\Public\GoldMineProject1\GoldMineProject.iml" />
-      <module fileurl="file://C:\Users\46\AndroidStudioProjects\GoldMineProject\GoldMineProject.iml" filepath="C:\Users\46\AndroidStudioProjects\GoldMineProject\GoldMineProject.iml" />
       <module fileurl="file://C:\Users\www\AndroidStudioProjects\GoldMineProject\.idea\GoldMineProject.iml" filepath="C:\Users\www\AndroidStudioProjects\GoldMineProject\.idea\GoldMineProject.iml" />
+      <module fileurl="file://C:\Users\46\AndroidStudioProjects\GoldMineProject\GoldMineProject.iml" filepath="C:\Users\46\AndroidStudioProjects\GoldMineProject\GoldMineProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GoldMineProject1.iml" filepath="$PROJECT_DIR$/GoldMineProject1.iml" />
       <module fileurl="file://C:\AndroidProjects\GoldMineProject\GoldMineProject1.iml" filepath="C:\AndroidProjects\GoldMineProject\GoldMineProject1.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

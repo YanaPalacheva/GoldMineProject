@@ -44,6 +44,7 @@ public class AddProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_profile);
+        setTitle("Новый профиль");
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .schemaVersion(4)
                 .deleteRealmIfMigrationNeeded()

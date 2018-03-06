@@ -8,11 +8,11 @@
         android:id="@+id/tvSumCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvOpValue"
-        android:layout_marginLeft="63dp"
-        android:layout_marginStart="63dp"
-        android:layout_toEndOf="@+id/tvOpValue"
-        android:layout_toRightOf="@+id/tvOpValue"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvSumValue"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
         android:text="Cur"
         android:textSize="30sp" />
 

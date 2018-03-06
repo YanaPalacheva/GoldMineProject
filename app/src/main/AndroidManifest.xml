@@ -32,6 +32,7 @@
         <activity android:name=".EditPersonalActivity"/>
         <activity android:name=".EditProfileActivity"/>
         <activity android:name=".PersonalOpActivity" />
+        <activity android:name=".AddPersonalOpActivity" />
         <activity android:name=".TipDialogActivity"
             android:theme="@android:style/Theme.Dialog" />
         <receiver android:name=".AlarmReceiver"/>

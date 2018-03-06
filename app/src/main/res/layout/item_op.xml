@@ -6,15 +6,17 @@
 
     <TextView
         android:id="@+id/tvOpComment"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
-        android:layout_toEndOf="@+id/ivImageGrop"
-        android:layout_toRightOf="@+id/ivImageGrop"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_toLeftOf="@+id/tvOpValue"
+        android:layout_toStartOf="@+id/tvOpValue"
         android:text="Comment"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/tvOpCurrency"

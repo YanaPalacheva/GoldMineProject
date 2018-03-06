@@ -49,7 +49,7 @@ public class FinSumAdapter extends BaseAdapter {
         FinSumAdapter.ViewHolder holder = null;
         if (vi == null) {
             //The view is not a recycled one: we have to inflate
-            vi = mLayoutInflater.inflate(R.layout.item_op, parent, false);
+            vi = mLayoutInflater.inflate(R.layout.item_fin_sum, parent, false);
             holder = new FinSumAdapter.ViewHolder();
             holder.tvSum = vi.findViewById(R.id.tvSumValue);
             holder.tvCurrency = vi.findViewById(R.id.tvSumCurrency);
@@ -58,7 +58,6 @@ public class FinSumAdapter extends BaseAdapter {
             holder = (FinSumAdapter.ViewHolder) vi.getTag();
         }
         CurTotal item = getItem(position);
-        holder.tvSum.setText(String.valueOf(item.getValue()));
         holder.tvCurrency.setText(item.getCurrency().getName());
         //if (item.getTotal() != null) {
         String tot = String.valueOf(item.getValue());

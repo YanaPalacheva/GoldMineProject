@@ -9,22 +9,49 @@
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/persOpDet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/persOpFinSum"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:text="Список операций"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/persOpTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/persOpFinSum"
+            android:layout_alignStart="@+id/persOpFinSum"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
+            android:text="Игого:"
+            android:textSize="24sp" />
+
         <ListView
             android:id="@+id/persOpFinSum"
             android:layout_width="200dp"
-            android:layout_height="162dp"
-            android:layout_above="@+id/persOpLV"
-            android:layout_alignTop="@+id/imageView"
-            android:layout_toLeftOf="@+id/imageView2"
-            android:layout_toStartOf="@+id/imageView2" />
+            android:layout_height="120dp"
+            android:layout_below="@+id/persOpTotal"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/addPerOp"
+            android:layout_toStartOf="@+id/addPerOp" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/addPerOp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/persOpLV"
@@ -38,11 +65,11 @@
         <ListView
             android:id="@+id/persOpLV"
             android:layout_width="match_parent"
-            android:layout_height="162dp"
-            android:layout_above="@+id/imageView2"
+            android:layout_height="190dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/persOpDet"
+            android:layout_marginTop="10dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="214dp" />
 
@@ -50,12 +77,9 @@
             android:id="@+id/persOpIV"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:layout_alignLeft="@+id/persOpLV"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/persOpLV"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="17dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/persOpFinSum"
             android:background="@drawable/blank_profile"
             app:civ_border_color="@color/circleBorder"
             app:civ_border_width="2dp" />
