@@ -1,6 +1,8 @@
 package com.example.www.goldmineproject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +23,8 @@ import appdb.UserOp;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+
+import android.widget.Toast;
 
 public class AddPersonalActivity extends AppCompatActivity {
 
@@ -58,48 +62,66 @@ public class AddPersonalActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Double value;
-                final String comm = comment.getText().toString();
-                if (radioGroupDebt.getCheckedRadioButtonId()==(myPlusBut.getId())) {
-                    value = Double.valueOf(total.getText().toString());
-                } else {
-                    value = -Double.valueOf(total.getText().toString());
+                if (users.getSelectedItem() == null || total.getText().toString().equals("")) {//ошибка во втором условии
+                    /*Toast toast = Toast.makeText(AddPersonalActivity.this,"Выберите с кем и сумму", Toast.LENGTH_SHORT);
+                    toast.show();*/
+                    AlertDialog dialog = new AlertDialog.Builder(AddPersonalActivity.this)
+                            .setTitle("Ошибка")
+                            .setMessage("Выберите с кем и сумму")
+                            .setPositiveButton("Попробовать снова", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create();
+                    dialog.show();
                 }
-                final Double val = value;
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        final  User user = realm.where(User.class)
-                                .equalTo("name", users.getSelectedItem().toString())
-                                .findFirst();
-                        final UserOp userOp = new UserOp();
-                        final MyCurrency currency = realm.where(MyCurrency.class)
-                                .equalTo("name", curr.getSelectedItem().toString())
-                                .findFirst();
-                        userOp.setCurrency(currency);
-                        userOp.setValue(val);
-                        userOp.setUserid(user.getId());
-                        userOp.setCommentary(comm);
-                        realm.copyToRealm(userOp);
-                        boolean found = false;
-                        for (CurTotal curTotal: user.getTotalList()) {
-                            if (userOp.getCurrency().getName().equals(curTotal.getCurrency().getName())) {
-                                curTotal.setValue(curTotal.getValue()+userOp.getValue());
-                                found = true;
-                                break;
+                else
+                {
+                    Double value;
+                    final String comm = comment.getText().toString();
+                    if (radioGroupDebt.getCheckedRadioButtonId() == (myPlusBut.getId())) {
+                        value = Double.valueOf(total.getText().toString());
+                    } else {
+                        value = -Double.valueOf(total.getText().toString());
+                    }
+                    final Double val = value;
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            final User user = realm.where(User.class)
+                                    .equalTo("name", users.getSelectedItem().toString())
+                                    .findFirst();
+                            final UserOp userOp = new UserOp();
+                            final MyCurrency currency = realm.where(MyCurrency.class)
+                                    .equalTo("name", curr.getSelectedItem().toString())
+                                    .findFirst();
+                            userOp.setCurrency(currency);
+                            userOp.setValue(val);
+                            userOp.setUserid(user.getId());
+                            userOp.setCommentary(comm);
+                            realm.copyToRealm(userOp);
+                            boolean found = false;
+                            for (CurTotal curTotal : user.getTotalList()) {
+                                if (userOp.getCurrency().getName().equals(curTotal.getCurrency().getName())) {
+                                    curTotal.setValue(curTotal.getValue() + userOp.getValue());
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                CurTotal curTotal = new CurTotal();
+                                curTotal.setUserid(user.getId());
+                                curTotal.setCurrency(userOp.getCurrency());
+                                curTotal.setValue(userOp.getValue());
+                                user.getTotalList().add(curTotal);
                             }
                         }
-                        if (!found) {
-                            CurTotal curTotal = new CurTotal();
-                            curTotal.setUserid(user.getId());
-                            curTotal.setCurrency(userOp.getCurrency());
-                            curTotal.setValue(userOp.getValue());
-                            user.getTotalList().add(curTotal);
-                        }
-                    }
-                });
-                Intent intent = new Intent(AddPersonalActivity.this, MainActivity.class);
-                startActivity(intent);
+                    });
+                    Intent intent = new Intent(AddPersonalActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }

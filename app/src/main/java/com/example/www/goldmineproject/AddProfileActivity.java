@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.mvc.imagepicker.ImagePicker;
 
@@ -68,7 +69,22 @@ public class AddProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final EditText name = findViewById(R.id.editUserName);
                 final String userName = name.getText().toString();
-                if (realm.where(User.class).equalTo("name", userName).findAll().isEmpty()) {
+                if (name.getText().toString().equals("")) {
+                    /*Toast toast = Toast.makeText(AddProfileActivity.this, "Введите имя", Toast.LENGTH_SHORT);
+                    toast.show();*/
+                    AlertDialog dialog = new AlertDialog.Builder(AddProfileActivity.this)
+                            .setTitle("Ошибка")
+                            .setMessage("Нет имени")
+                            .setPositiveButton("Попробовать снова", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create();
+                    dialog.show();
+                } else {
+                    if (realm.where(User.class).equalTo("name", userName).findAll().isEmpty()) {
                     final User user = new User(); // Create managed objects directly
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
@@ -95,6 +111,7 @@ public class AddProfileActivity extends AppCompatActivity {
                             .create();
                     dialog.show();
                 }
+            }
             }
         });
     }
