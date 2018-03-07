@@ -21,10 +21,9 @@
             android:id="@+id/persTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView6"
-            android:layout_alignBottom="@+id/textView6"
-            android:layout_alignEnd="@+id/personalSpinner"
-            android:layout_alignRight="@+id/personalSpinner"
+            android:layout_alignLeft="@+id/createNewProfile"
+            android:layout_alignStart="@+id/createNewProfile"
+            android:layout_alignTop="@+id/textView6"
             android:ems="10"
             android:inputType="number" />
 
@@ -44,8 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView"
             android:layout_alignStart="@+id/textView"
-            android:layout_below="@+id/textView"
-            android:layout_marginTop="37dp"
+            android:layout_below="@+id/createNewProfile"
             android:text="Сумма:"
             android:textSize="24sp" />
 
@@ -107,6 +105,17 @@
             android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="41dp" />
+
+        <Button
+            android:id="@+id/createNewProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/personalSpinner"
+            android:layout_alignRight="@+id/personalSpinner"
+            android:layout_below="@+id/personalSpinner"
+            android:text="Создать новый профиль"
+            tools:layout_editor_absoluteX="247dp"
+            tools:layout_editor_absoluteY="428dp" />
 
         <TextView
             android:id="@+id/textView"
