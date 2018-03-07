@@ -29,7 +29,6 @@
         <activity android:name=".AddProfileActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EditGroupActivity"/>
-        <activity android:name=".EditPersonalActivity"/>
         <activity android:name=".EditProfileActivity"/>
         <activity android:name=".PersonalOpActivity" />
         <activity android:name=".AddPersonalOpActivity" />

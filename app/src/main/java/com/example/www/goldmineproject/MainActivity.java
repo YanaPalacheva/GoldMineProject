@@ -21,6 +21,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -60,7 +61,7 @@ import io.realm.RealmResults;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String TAG = "MyActivity";
     private ViewFlipper viewFlipper;
     private BottomNavigationView bottomNavigationView;
     private float lastX;
@@ -231,9 +232,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
-                View p = (View) view.getParent();
+                View p = (View) view;
                 TextView groupTextView = (TextView) p.findViewById(R.id.tvTextGroup);
                 final String task = String.valueOf(groupTextView.getText());
+                Log.d(TAG, task);
                 AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Удаление/изменение группы")
                         .setMessage("Вы действительно хотите удалить/изменить группу?")
@@ -276,12 +278,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
-                View p= (View) view.getParent();
+                View p= (View) view;
                 TextView groupTextView=(TextView) p.findViewById(R.id.tvTextPersonal);
                 final String task = String.valueOf(groupTextView.getText());
                 AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Удаление/изменение личного счета")
-                        .setMessage("Вы действительно хотите удалить/изменить личный счет?")
+                        .setTitle("Удаление личного счета")
+                        .setMessage("Вы действительно хотите удалить личный счет?")
                         .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -298,14 +300,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         })
-                        .setNeutralButton("Изменить", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent=new Intent(MainActivity.this, EditPersonalActivity.class);
-                                intent.putExtra("name", task);
-                                startActivity(intent);
-                            }
-                        })
                         .setNegativeButton("Отмена", null)
                         .create();
                 dialog.show();
@@ -320,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
-                View p= (View) view.getParent();
+                View p= (View) view;
                 TextView groupTextView=(TextView) p.findViewById(R.id.tvTextProfile);
                 final String task = String.valueOf(groupTextView.getText());
                 AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
