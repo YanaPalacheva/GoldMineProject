@@ -42,6 +42,7 @@ import com.mvc.imagepicker.ImagePicker;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
 
             Realm.init(this);
@@ -148,8 +149,16 @@ public class MainActivity extends AppCompatActivity {
             profileListView.setAdapter(profileAdapter);
 
         ListView personalListView = findViewById(R.id.personalListView);
-        final PersonalAdapter personalAdapter = new PersonalAdapter(this, realm.where(User.class).findAll());
+        RealmResults<User> users = realm.where(User.class).findAll();
+        ArrayList<User> userList=new ArrayList<>();
+        for (User u:users) {
+            if(u.getTotal()!=0)
+                userList.add(u);
+        }
+        final PersonalAdapter personalAdapter = new PersonalAdapter(this, userList);
             personalListView.setAdapter(personalAdapter);
+
+
 
         ListView groupListView = findViewById(R.id.groupListView);
         final GroupAdapter groupAdapter = new GroupAdapter(this, realm.where(Group.class).findAll());
@@ -200,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(MainActivity.this, AddProfileActivity.class);
+                    intent.putExtra("class", "com.example.www.goldmineproject.MainActivity");
                     startActivity(intent);
                 }
             });

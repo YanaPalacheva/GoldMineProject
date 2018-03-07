@@ -65,18 +65,20 @@ public class PersonalAdapter  extends BaseAdapter {
             holder = (PersonalAdapter.ViewHolder) vi.getTag();
         }
         User item = getItem(position);
-        holder.tvName.setText(item.getName());
-        //if (item.getTotal() != null) {
-        String tot = "~"+String.valueOf(item.getTotal());
+
+            holder.tvName.setText(item.getName());
+            //if (item.getTotal() != null) {
+            String tot = "~" + String.valueOf(item.getTotal());
             holder.tvTotal.setText(tot);
-        if (item.getTotal()<0)
-            holder.tvTotal.setTextColor(context.getResources().getColor(R.color.minusBalance));
-        else
-            holder.tvTotal.setTextColor(context.getResources().getColor(R.color.plusBalance));
-        //}
-        if (item.getPic() != null) {
-            holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
-        }
+            if (item.getTotal() < 0)
+                holder.tvTotal.setTextColor(context.getResources().getColor(R.color.minusBalance));
+            else
+                holder.tvTotal.setTextColor(context.getResources().getColor(R.color.plusBalance));
+            //}
+            if (item.getPic() != null) {
+                holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(item.getPic(), 0, item.getPic().length));
+            }
+
         return vi;
     }
 

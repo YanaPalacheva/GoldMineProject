@@ -61,6 +61,16 @@ public class AddPersonalActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item);
         curr.setAdapter(spinCurrAdapter);
 
+        Button createButton=(Button) findViewById(R.id.createNewProfile);
+        createButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddPersonalActivity.this, AddProfileActivity.class);
+                intent.putExtra("class", "com.example.www.goldmineproject.AddPersonalActivity");
+                startActivity(intent);
+            }
+        });
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
