@@ -24,7 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddGroupActivity" />
+        <activity android:name=".AddGroupActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".AddPersonalActivity" />
         <activity android:name=".AddProfileActivity" />
         <activity android:name=".ProfileActivity" />

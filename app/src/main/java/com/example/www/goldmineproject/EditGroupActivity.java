@@ -76,6 +76,7 @@ public class EditGroupActivity extends AppCompatActivity {
                     public void execute(Realm realm) {
                         group.setName(name.getText().toString());
                         if (file != null) {
+                            file=Bitmap.createScaledBitmap(file, file.getWidth()/4, file.getHeight()/4, false);
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             file.compress(Bitmap.CompressFormat.PNG, 0, stream);
                             group.setPic(stream.toByteArray());

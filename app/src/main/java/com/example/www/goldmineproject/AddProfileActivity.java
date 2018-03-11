@@ -96,6 +96,7 @@ public class AddProfileActivity extends AppCompatActivity {
                                 public void execute(Realm realm) {
                                     user.setName(userName);
                                     if (file != null) {
+                                        file=Bitmap.createScaledBitmap(file, file.getWidth()/4, file.getHeight()/4, false);
                                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                                         file.compress(Bitmap.CompressFormat.PNG, 100, stream);
                                         user.setPic(stream.toByteArray());
