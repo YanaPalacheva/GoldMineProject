@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.www.goldmineproject.adapters.NothingSelectedSpinnerAdapter;
 import com.example.www.goldmineproject.adapters.ProfileAdapter;
 import com.mvc.imagepicker.ImagePicker;
 
@@ -31,6 +33,7 @@ import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class AddGroupActivity extends AppCompatActivity {
+    private static final String TAG = "AddGroupActivity";
     private CircleImageView imageView;
     private Bitmap file;
 
@@ -69,15 +72,14 @@ public class AddGroupActivity extends AppCompatActivity {
         for (User user: userList)
             userNames.add(user.getName());
         ArrayAdapter<String> spinUserAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userNames);
-        users.setAdapter(spinUserAdapter);
+        spinUserAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        users.setPrompt("Выберите профиль");
+        users.setAdapter(new NothingSelectedSpinnerAdapter(spinUserAdapter, R.layout.contact_spinner_row_nothing_selected,this));
+
+
 
         ListView usersSelectedListView = findViewById(R.id.usersSelected);
         final List<User> userArrayList = new ArrayList<>();
-        User myProfile=realm.where(User.class)
-                    .equalTo("name", "043e0447") //найти себя!!!
-                    .findFirst();
-        if (myProfile != null)
-            userArrayList.add(myProfile);
         final ProfileAdapter userSelectedAdapter = new ProfileAdapter(this, userArrayList, realm);
         usersSelectedListView.setAdapter(userSelectedAdapter);
 
@@ -85,12 +87,14 @@ public class AddGroupActivity extends AppCompatActivity {
         users.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //usersSelected.add(users.getSelectedItem().toString());
-                User user = realm.where(User.class)
-                        .equalTo("name", users.getSelectedItem().toString())
-                        .findFirst();
-                userArrayList.add(user);
-                userSelectedAdapter.notifyDataSetChanged();
+                //usersSelected.add(users.getSelectedItem().toString())
+                if(users.getSelectedItem()!=null) {
+                    User user = realm.where(User.class)
+                            .equalTo("name", users.getSelectedItem().toString())
+                            .findFirst();
+                    userArrayList.add(user);
+                    userSelectedAdapter.notifyDataSetChanged();
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -111,6 +115,7 @@ public class AddGroupActivity extends AppCompatActivity {
                     public void execute(Realm realm) {
                         group.setName(name.getText().toString());
                         if (file != null) {
+                            file=Bitmap.createScaledBitmap(file, file.getWidth()/4, file.getHeight()/4, false);
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             file.compress(Bitmap.CompressFormat.PNG, 100, stream);
                             group.setPic(stream.toByteArray());
