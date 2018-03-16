@@ -1,6 +1,7 @@
 package com.example.www.goldmineproject;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -62,14 +63,16 @@ public class ProfileActivity extends AppCompatActivity {
             file = savedInstanceState.getParcelable("bitmap");
         } else {
             byte[] pic = realm.where(MyAccount.class).findFirst().getPic();
-            if (pic != null)
+            if (pic != null) {
                 file = BitmapFactory.decodeByteArray(pic, 0, pic.length);
+            }
         }
         myProfilePic.setImageBitmap(file);
         myProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onPickImage(view);
+
             }
         });
 
@@ -81,7 +84,9 @@ public class ProfileActivity extends AppCompatActivity {
     public void onPickImage(View view) {
         // Click on image button
         ImagePicker.pickImage(this, "Select your image:");
+
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle toSave) {
