@@ -401,6 +401,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void execute(Realm realm) {
                     final MyAccount myProfile = realm.where(MyAccount.class).findFirst();
+                    file=Bitmap.createScaledBitmap(file, file.getWidth()/4, file.getHeight()/4, false);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     file.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     myProfile.setPic(stream.toByteArray());
