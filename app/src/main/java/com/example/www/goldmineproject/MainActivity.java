@@ -164,12 +164,24 @@ public class MainActivity extends AppCompatActivity {
         final GroupAdapter groupAdapter = new GroupAdapter(this, realm.where(Group.class).findAll());
             groupListView.setAdapter(groupAdapter);
 
+        groupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                View p=(View) view;
+                TextView groupTextView=(TextView) p.findViewById(R.id.tvTextGroup);
+                final String message =realm.where(Group.class).equalTo("name", String.valueOf(groupTextView.getText())).findFirst().getId();
+                Intent intent = new Intent(MainActivity.this, GroupOpActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
+        });
+
         personalListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
-                View p = (View) arg1.getParent();
+                View p = (View) arg1;
                 TextView personalTextView = (TextView) p.findViewById(R.id.tvTextPersonal);
                 final String message = realm.where(User.class).equalTo("name", String.valueOf(personalTextView.getText())).findFirst().getId();
                 Intent intent = new Intent(MainActivity.this, PersonalOpActivity.class);
