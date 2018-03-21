@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.www.goldmineproject.AddPersonalOpActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <EditText
+            android:id="@+id/groupTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView6"
+            android:layout_alignBottom="@+id/textView6"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="21dp"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/spinnerCurrencyGroup"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_alignStart="@+id/textView5"
+            android:text="Валюта:"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="41dp"
+            android:text="Сумма:"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_alignStart="@+id/textView6"
+            android:layout_below="@+id/groupTotal"
+            android:layout_marginTop="73dp"
+            android:text="Долг:"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/groupSpinnerSource"
+            android:layout_width="232dp"
+            android:layout_height="28dp"
+            android:layout_alignBottom="@+id/textView5"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="41dp" />
+        <Spinner
+            android:id="@+id/groupSpinnerTarget"
+            android:layout_width="232dp"
+            android:layout_height="28dp"
+            android:layout_below="@id/groupSpinnerSource"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="41dp" />
+
+        <Button
+            android:id="@+id/addGroupOpOp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="19dp"
+            android:text="Создать"
+            tools:layout_editor_absoluteX="247dp"
+            tools:layout_editor_absoluteY="428dp" />
+
+        <Spinner
+            android:id="@+id/spinnerCurrencyGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/groupTotal"
+            android:layout_alignStart="@+id/groupTotal"
+            android:layout_centerVertical="true"
+            android:paddingTop="5dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView7"
+            android:layout_alignStart="@+id/textView7"
+            android:layout_below="@+id/textView7"
+            android:layout_marginTop="26dp"
+            android:text="Комментарий:"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/groupComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:inputType="textPersonName" />
+    </RelativeLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
+

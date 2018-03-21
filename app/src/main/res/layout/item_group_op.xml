@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvOpSource"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:text="Source"
+        android:textSize="18sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvOpTarget"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:text="Target"
+        android:textSize="18sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvOpSource"
+        android:id="@+id/tvOpGroupComment"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:text="Comment"
+        android:textSize="18sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvOpTarget"
+        android:id="@+id/tvOpGroupCurrency"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_alignEnd="@id/tvOpTarget"
+        android:layout_alignRight="@id/tvOpTarget"
+        android:text="CUR"
+        android:textSize="18sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvOpGroupValue"
+        android:layout_alignBaseline="@+id/tvOpGroupCurrency"
+        android:layout_alignBottom="@+id/tvOpGroupCurrency"
+        android:layout_toLeftOf="@+id/tvOpGroupCurrency"
+        android:layout_toStartOf="@+id/tvOpGroupCurrency"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:fontFamily="g"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="24sp" />
+
+
+</RelativeLayout>
