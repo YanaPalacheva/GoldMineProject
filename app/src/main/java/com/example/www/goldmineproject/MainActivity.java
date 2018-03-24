@@ -48,7 +48,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import appdb.CurTotal;
+import appdb.CurTotalGroup;
 import appdb.Group;
+import appdb.GroupOp;
 import appdb.MyAccount;
 import appdb.MyCurrency;
 import appdb.Tips;
@@ -152,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         RealmResults<User> users = realm.where(User.class).findAll();
         ArrayList<User> userList=new ArrayList<>();
         for (User u:users) {
-            if(u.getTotal()!=0)
+            if((u.getTotal()!=0))
                 userList.add(u);
         }
         final PersonalAdapter personalAdapter = new PersonalAdapter(this, userList);
@@ -169,8 +171,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 View p=(View) view;
                 TextView groupTextView=(TextView) p.findViewById(R.id.tvTextGroup);
-                final String message =realm.where(Group.class).equalTo("name", String.valueOf(groupTextView.getText())).findFirst().getId();
-                Intent intent = new Intent(MainActivity.this, GroupOpActivity.class);
+                Group group = realm.where(Group.class).equalTo("name", String.valueOf(groupTextView.getText())).findFirst();
+                final String message =group.getId();
+                Intent intent;
+                    intent = new Intent(MainActivity.this, GroupOpActivity.class);
                 intent.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intent);
             }
@@ -264,18 +268,25 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                final Group group=realm.where(Group.class).equalTo("name", task).findFirst();
+                                final RealmResults<GroupOp> resultGroupOp=realm.where(GroupOp.class).equalTo("groupid", group.getId()).findAll();
+                                final RealmResults<CurTotalGroup> resultCurTotalGroup=realm.where(CurTotalGroup.class).equalTo("groupid", group.getId()).findAll();
                                 final RealmResults<Group> result = realm.where(Group.class).equalTo("name", task).findAll();
-                                if (result.isValid() && !result.isEmpty()) {
+                                if ((result.isValid() && !result.isEmpty())&&(resultGroupOp.isValid() && !resultGroupOp.isEmpty())
+                                        &&(resultCurTotalGroup.isValid() && !resultCurTotalGroup.isEmpty())) {
                                     realm.executeTransaction(new Realm.Transaction() {
                                         @Override
                                         public void execute(Realm realm) {
                                             result.deleteAllFromRealm();
+                                            resultGroupOp.deleteAllFromRealm();
+                                            resultCurTotalGroup.deleteAllFromRealm();
                                             groupAdapter.notifyDataSetChanged();
                                             groupAdapter.notifyDataSetInvalidated();
 
                                         }
                                     });
                                 }
+
                             }
                         })
                         .setNeutralButton("Изменить", new DialogInterface.OnClickListener() {
@@ -310,11 +321,16 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 final RealmResults<User> result = realm.where(User.class).equalTo("name", task).findAll();
+                                final User user=realm.where(User.class).equalTo("name", task).findFirst();
+                                final RealmResults<UserOp> resultUserOp=realm.where(UserOp.class).equalTo("userid", user.getId()).findAll();
+                                final RealmResults<CurTotal> resultCurTotal=realm.where(CurTotal.class).equalTo("userid", user.getId()).findAll();
                                 if(result.isValid()&&!result.isEmpty()) {
                                     realm.executeTransaction(new Realm.Transaction() {
                                         @Override
                                         public void execute(Realm realm) {
                                             result.deleteAllFromRealm();
+                                            resultUserOp.deleteAllFromRealm();
+                                            resultCurTotal.deleteAllFromRealm();
                                             personalAdapter.notifyDataSetChanged();
                                             personalAdapter.notifyDataSetInvalidated();
                                         }

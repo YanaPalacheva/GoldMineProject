@@ -18,11 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.www.goldmineproject.adapters.FinSumAdapter;
+import com.example.www.goldmineproject.adapters.FinSumGroupAdapter;
 import com.example.www.goldmineproject.adapters.OpAdapter;
 import com.example.www.goldmineproject.adapters.OpGroupAdapter;
 import com.mvc.imagepicker.ImagePicker;
 
 import appdb.CurTotal;
+import appdb.CurTotalGroup;
 import appdb.Group;
 import appdb.GroupOp;
 import appdb.User;
@@ -69,10 +71,10 @@ public class GroupOpActivity extends AppCompatActivity {
         OpGroupAdapter opGroupAdapter = new OpGroupAdapter(this, realm.where(GroupOp.class).equalTo("groupid", groupid).findAll());
         opListView.setAdapter(opGroupAdapter);
 
-        /*ListView finSumListView = findViewById(R.id.groupOpFinSum);
-        FinSumAdapter finSumAdapter = new FinSumAdapter(this, realm.where(CurTotal.class).equalTo("userid", userid).findAll());
-        finSumListView.setAdapter(finSumAdapter);
-*/
+        ListView finSumListView = findViewById(R.id.groupOpFinSum);
+        FinSumGroupAdapter finSumGroupAdapter = new FinSumGroupAdapter(this, realm.where(CurTotalGroup.class).equalTo("groupid", groupid).findAll());
+        finSumListView.setAdapter(finSumGroupAdapter);
+
         ImagePicker.setMinQuality(600, 600);
         myProfilePic = findViewById(R.id.groupOpIV);
         if (savedInstanceState != null) {
@@ -89,6 +91,16 @@ public class GroupOpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(GroupOpActivity.this, AddGroupOpActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, groupid);
+                startActivity(intent);
+            }
+        });
+
+        ImageView groupBack = findViewById(R.id.backGroupOp);
+        groupBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (GroupOpActivity.this, MainActivity.class);
                 intent.putExtra(EXTRA_MESSAGE, groupid);
                 startActivity(intent);
             }

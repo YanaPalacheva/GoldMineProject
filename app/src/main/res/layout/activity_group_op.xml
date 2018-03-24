@@ -17,12 +17,33 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/groupOpTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/groupOpFinSum"
+            android:layout_alignStart="@+id/groupOpFinSum"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
+            android:text="Итого:"
+            android:textSize="24sp" />
+
+        <ListView
+            android:id="@+id/groupOpFinSum"
+            android:layout_width="200dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/groupOpTotal"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/addGroupOp"
+            android:layout_toStartOf="@+id/addGroupOp" />
+
+        <TextView
             android:id="@+id/groupOpDet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/groupOpIV"
+            android:layout_below="@+id/groupOpFinSum"
             android:layout_marginTop="24dp"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
@@ -40,6 +61,16 @@
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
             app:srcCompat="@drawable/ic_plus" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backGroupOp"
+            android:layout_alignParentBottom="true"
+            app:srcCompat="@drawable/ic_arrow"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"/>
 
         <ListView
             android:id="@+id/GroupOpLV"
@@ -59,6 +90,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:background="@drawable/blank_profile"
+            android:layout_alignTop="@+id/groupOpFinSum"
             app:civ_border_color="@color/circleBorder"
             app:civ_border_width="2dp" />
 
