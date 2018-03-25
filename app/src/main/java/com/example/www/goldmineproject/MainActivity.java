@@ -282,9 +282,9 @@ public class MainActivity extends AppCompatActivity {
                                             resultCurTotalGroup.deleteAllFromRealm();
                                             groupAdapter.notifyDataSetChanged();
                                             groupAdapter.notifyDataSetInvalidated();
-
                                         }
                                     });
+
                                 }
 
                             }
@@ -320,15 +320,13 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                final RealmResults<User> result = realm.where(User.class).equalTo("name", task).findAll();
                                 final User user=realm.where(User.class).equalTo("name", task).findFirst();
                                 final RealmResults<UserOp> resultUserOp=realm.where(UserOp.class).equalTo("userid", user.getId()).findAll();
                                 final RealmResults<CurTotal> resultCurTotal=realm.where(CurTotal.class).equalTo("userid", user.getId()).findAll();
-                                if(result.isValid()&&!result.isEmpty()) {
+                                if((resultUserOp.isValid()&&!resultUserOp.isEmpty())) {
                                     realm.executeTransaction(new Realm.Transaction() {
                                         @Override
                                         public void execute(Realm realm) {
-                                            result.deleteAllFromRealm();
                                             resultUserOp.deleteAllFromRealm();
                                             resultCurTotal.deleteAllFromRealm();
                                             personalAdapter.notifyDataSetChanged();
