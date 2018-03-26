@@ -151,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
             profileListView.setAdapter(profileAdapter);
 
         ListView personalListView = findViewById(R.id.personalListView);
-        RealmResults<User> users = realm.where(User.class).findAll();
-        ArrayList<User> userList=new ArrayList<>();
+        final RealmResults<User> users = realm.where(User.class).findAll();
+        final ArrayList<User> userList=new ArrayList<>();
         for (User u:users) {
             if((u.getTotal()!=0))
                 userList.add(u);
@@ -329,6 +329,12 @@ public class MainActivity extends AppCompatActivity {
                                         public void execute(Realm realm) {
                                             resultUserOp.deleteAllFromRealm();
                                             resultCurTotal.deleteAllFromRealm();
+                                            userList.removeAll(userList);
+                                            for (User u:users) {
+                                                if((u.getTotal()!=0))
+                                                    userList.add(u);
+                                            }
+                                            personalAdapter.setmData(userList);
                                             personalAdapter.notifyDataSetChanged();
                                             personalAdapter.notifyDataSetInvalidated();
                                         }
