@@ -272,8 +272,7 @@ public class MainActivity extends AppCompatActivity {
                                 final RealmResults<GroupOp> resultGroupOp=realm.where(GroupOp.class).equalTo("groupid", group.getId()).findAll();
                                 final RealmResults<CurTotalGroup> resultCurTotalGroup=realm.where(CurTotalGroup.class).equalTo("groupid", group.getId()).findAll();
                                 final RealmResults<Group> result = realm.where(Group.class).equalTo("name", task).findAll();
-                                if ((result.isValid() && !result.isEmpty())&&(resultGroupOp.isValid() && !resultGroupOp.isEmpty())
-                                        &&(resultCurTotalGroup.isValid() && !resultCurTotalGroup.isEmpty())) {
+                                if ((result.isValid() && !result.isEmpty())) {
                                     realm.executeTransaction(new Realm.Transaction() {
                                         @Override
                                         public void execute(Realm realm) {
