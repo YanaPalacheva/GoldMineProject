@@ -91,6 +91,16 @@ public class PersonalOpActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ImageView persBack = findViewById(R.id.backPersOp);
+        persBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (PersonalOpActivity.this, MainActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, userid);
+                startActivity(intent);
+            }
+        });
        //
        /*myProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override

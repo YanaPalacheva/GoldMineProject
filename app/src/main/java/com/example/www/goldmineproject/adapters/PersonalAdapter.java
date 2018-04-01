@@ -34,6 +34,14 @@ public class PersonalAdapter  extends BaseAdapter {
         this.context = context;
     }
 
+    public List<User> getmData() {
+        return mData;
+    }
+
+    public void setmData(List<User> mData) {
+        this.mData = mData;
+    }
+
     @Override
     public int getCount() {
         return mData == null ? 0 : mData.size();

@@ -62,6 +62,16 @@
             android:layout_marginRight="13dp"
             app:srcCompat="@drawable/ic_plus" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backPersOp"
+            android:layout_alignParentBottom="true"
+            app:srcCompat="@drawable/ic_arrow"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"/>
+
         <ListView
             android:id="@+id/persOpLV"
             android:layout_width="match_parent"

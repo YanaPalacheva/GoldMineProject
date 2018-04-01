@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import appdb.CurTotal;
+import appdb.CurTotalGroup;
 import appdb.Group;
 import appdb.GroupOp;
 import appdb.MyCurrency;
@@ -58,6 +59,7 @@ public class AddGroupOpActivity extends AppCompatActivity {
         final Spinner target = findViewById(R.id.groupSpinnerTarget);
         final EditText total = findViewById(R.id.groupTotal);
         final EditText comment = findViewById(R.id.groupComment);
+
         ArrayAdapter<String> spinUserAdapterSource = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userNames);
         spinUserAdapterSource.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         source.setPrompt("Выберите профиль");
@@ -98,23 +100,30 @@ public class AddGroupOpActivity extends AppCompatActivity {
                         groupOp.setSource(user1);
                         groupOp.setTarget(user2);
                         realm.copyToRealm(groupOp);
-                        /*boolean found = false;
-                        for (CurTotal curTotal: user.getTotalList()) {
-                            if (userOp.getCurrency().getName().equals(curTotal.getCurrency().getName())) {
-                                curTotal.setValue(curTotal.getValue()+userOp.getValue());
+                        boolean found = false;
+                        for (CurTotalGroup curTotalGroup: group.getTotal()) {
+                            if ((groupOp.getCurrency().getName().equals(curTotalGroup.getCurrency().getName()))
+                                    &&(groupOp.getSource().getName().equals(curTotalGroup.getSource().getName()))
+                                    &&(groupOp.getTarget().getName().equals(curTotalGroup.getTarget().getName()))) {
+                                curTotalGroup.setValue(curTotalGroup.getValue()+groupOp.getValue());
                                 found = true;
                                 break;
                             }
                         }
                         if (!found) {
-                            CurTotal curTotal = new CurTotal();
-                            curTotal.setUserid(user.getId());
-                            curTotal.setCurrency(userOp.getCurrency());
-                            curTotal.setValue(userOp.getValue());
-                            user.getTotalList().add(curTotal);
-                        }*/
+                            CurTotalGroup curTotalGroup = new CurTotalGroup();
+                            curTotalGroup.setGroupid(group.getId());
+                            curTotalGroup.setCurrency(groupOp.getCurrency());
+                            curTotalGroup.setValue(value);
+                            curTotalGroup.setSource(groupOp.getSource());
+                            curTotalGroup.setTarget(groupOp.getTarget());
+                            realm.copyToRealm(curTotalGroup);
+                            group.getTotal().add(curTotalGroup);
+                            realm.copyToRealm(group);
+                        }
                     }
                 });
+
                 Intent intent = new Intent(AddGroupOpActivity.this, GroupOpActivity.class);
                 intent.putExtra(EXTRA_MESSAGE, groupid);
                 startActivity(intent);

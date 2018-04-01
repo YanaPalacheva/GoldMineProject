@@ -70,7 +70,7 @@ public class AddGroupActivity extends AppCompatActivity {
         List<User> userList = realm.copyFromRealm(realmResults);
         List<String> userNames = new ArrayList<>();
         for (User user: userList)
-            userNames.add(user.getName());
+                userNames.add(user.getName());
         ArrayAdapter<String> spinUserAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userNames);
         spinUserAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         users.setPrompt("Выберите профиль");

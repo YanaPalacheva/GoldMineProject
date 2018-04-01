@@ -52,6 +52,10 @@ public class AddPersonalOpActivity extends AppCompatActivity {
         final EditText total = findViewById(R.id.persTotal);
         final EditText comment = findViewById(R.id.persComment);
 
+        final  User user = realm.where(User.class)
+                .equalTo("id", userid)
+                .findFirst();
+
         ArrayAdapter spinCurrAdapter = ArrayAdapter.createFromResource(this, R.array.currs,
                 android.R.layout.simple_spinner_item);
         curr.setAdapter(spinCurrAdapter);
@@ -70,10 +74,7 @@ public class AddPersonalOpActivity extends AppCompatActivity {
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        final  User user = realm.where(User.class)
-                                .equalTo("id", userid)
-                                .findFirst();
-                        final UserOp userOp = new UserOp();
+                                                final UserOp userOp = new UserOp();
                         final MyCurrency currency = realm.where(MyCurrency.class)
                                 .equalTo("name", curr.getSelectedItem().toString())
                                 .findFirst();
@@ -95,7 +96,9 @@ public class AddPersonalOpActivity extends AppCompatActivity {
                             curTotal.setUserid(user.getId());
                             curTotal.setCurrency(userOp.getCurrency());
                             curTotal.setValue(userOp.getValue());
+                            realm.copyToRealm(curTotal);
                             user.getTotalList().add(curTotal);
+                            realm.copyToRealm(user);
                         }
                     }
                 });
