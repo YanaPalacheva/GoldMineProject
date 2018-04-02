@@ -1,7 +1,9 @@
 package com.example.www.goldmineproject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -78,55 +80,72 @@ public class AddGroupOpActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String comm = comment.getText().toString();
-                final double value = Double.parseDouble(total.getText().toString());
+                if (source.getSelectedItem() == null || target.getSelectedItem() == null || total.getText().toString().equals("")) {//ошибка во втором условии
+                    /*Toast toast = Toast.makeText(AddPersonalActivity.this,"Выберите с кем и сумму", Toast.LENGTH_SHORT);
+                    toast.show();*/
+                    AlertDialog dialog = new AlertDialog.Builder(AddGroupOpActivity.this)
+                            .setTitle("Ошибка")
+                            .setMessage("Выберите с кем и сумму")
+                            .setPositiveButton("Попробовать снова", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create();
+                    dialog.show();
+                }
+                else {
+                    final String comm = comment.getText().toString();
+                    final double value = Double.parseDouble(total.getText().toString());
 
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
 
-                        final GroupOp groupOp = new GroupOp();
-                        final MyCurrency currency = realm.where(MyCurrency.class)
-                                .equalTo("name", curr.getSelectedItem().toString())
-                                .findFirst();
-                        final User user1=realm.where(User.class).equalTo("name",source.getSelectedItem().toString())
-                                .findFirst();
-                        final User user2=realm.where(User.class).equalTo("name",target.getSelectedItem().toString())
-                                .findFirst();
-                        groupOp.setCurrency(currency);
-                        groupOp.setValue(value);
-                        groupOp.setGroupid(group.getId());
-                        groupOp.setCommentary(comm);
-                        groupOp.setSource(user1);
-                        groupOp.setTarget(user2);
-                        realm.copyToRealm(groupOp);
-                        boolean found = false;
-                        for (CurTotalGroup curTotalGroup: group.getTotal()) {
-                            if ((groupOp.getCurrency().getName().equals(curTotalGroup.getCurrency().getName()))
-                                    &&(groupOp.getSource().getName().equals(curTotalGroup.getSource().getName()))
-                                    &&(groupOp.getTarget().getName().equals(curTotalGroup.getTarget().getName()))) {
-                                curTotalGroup.setValue(curTotalGroup.getValue()+groupOp.getValue());
-                                found = true;
-                                break;
+                            final GroupOp groupOp = new GroupOp();
+                            final MyCurrency currency = realm.where(MyCurrency.class)
+                                    .equalTo("name", curr.getSelectedItem().toString())
+                                    .findFirst();
+                            final User user1 = realm.where(User.class).equalTo("name", source.getSelectedItem().toString())
+                                    .findFirst();
+                            final User user2 = realm.where(User.class).equalTo("name", target.getSelectedItem().toString())
+                                    .findFirst();
+                            groupOp.setCurrency(currency);
+                            groupOp.setValue(value);
+                            groupOp.setGroupid(group.getId());
+                            groupOp.setCommentary(comm);
+                            groupOp.setSource(user1);
+                            groupOp.setTarget(user2);
+                            realm.copyToRealm(groupOp);
+                            boolean found = false;
+                            for (CurTotalGroup curTotalGroup : group.getTotal()) {
+                                if ((groupOp.getCurrency().getName().equals(curTotalGroup.getCurrency().getName()))
+                                        && (groupOp.getSource().getName().equals(curTotalGroup.getSource().getName()))
+                                        && (groupOp.getTarget().getName().equals(curTotalGroup.getTarget().getName()))) {
+                                    curTotalGroup.setValue(curTotalGroup.getValue() + groupOp.getValue());
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                CurTotalGroup curTotalGroup = new CurTotalGroup();
+                                curTotalGroup.setGroupid(group.getId());
+                                curTotalGroup.setCurrency(groupOp.getCurrency());
+                                curTotalGroup.setValue(value);
+                                curTotalGroup.setSource(groupOp.getSource());
+                                curTotalGroup.setTarget(groupOp.getTarget());
+                                realm.copyToRealm(curTotalGroup);
+                                group.getTotal().add(curTotalGroup);
+                                realm.copyToRealm(group);
                             }
                         }
-                        if (!found) {
-                            CurTotalGroup curTotalGroup = new CurTotalGroup();
-                            curTotalGroup.setGroupid(group.getId());
-                            curTotalGroup.setCurrency(groupOp.getCurrency());
-                            curTotalGroup.setValue(value);
-                            curTotalGroup.setSource(groupOp.getSource());
-                            curTotalGroup.setTarget(groupOp.getTarget());
-                            realm.copyToRealm(curTotalGroup);
-                            group.getTotal().add(curTotalGroup);
-                            realm.copyToRealm(group);
-                        }
-                    }
-                });
+                    });
 
-                Intent intent = new Intent(AddGroupOpActivity.this, GroupOpActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, groupid);
-                startActivity(intent);
+                    Intent intent = new Intent(AddGroupOpActivity.this, GroupOpActivity.class);
+                    intent.putExtra(EXTRA_MESSAGE, groupid);
+                    startActivity(intent);
+                }
             }
         });
     }
