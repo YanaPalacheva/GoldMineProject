@@ -25,7 +25,9 @@
             android:layout_alignStart="@+id/createNewProfile"
             android:layout_alignTop="@+id/textView6"
             android:ems="10"
-            android:inputType="number" />
+            android:digits="0123456789."
+            android:inputType="numberDecimal"
+            android:maxLength="7"/>
 
         <TextView
             android:id="@+id/textView7"

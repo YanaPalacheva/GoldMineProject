@@ -1,8 +1,10 @@
 package com.example.www.goldmineproject;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,7 +78,7 @@ public class AddGroupActivity extends AppCompatActivity {
         users.setPrompt("Выберите профиль");
         users.setAdapter(new NothingSelectedSpinnerAdapter(spinUserAdapter, R.layout.contact_spinner_row_nothing_selected,this));
 
-
+        final EditText name = findViewById(R.id.editGroupName);
 
         ListView usersSelectedListView = findViewById(R.id.usersSelected);
         final List<User> userArrayList = new ArrayList<>();
@@ -107,27 +109,43 @@ public class AddGroupActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final EditText name = findViewById(R.id.editGroupName);
-                final Group group = new Group(); // Create managed objects directly
+                if ( name.getText().toString().equals("")) {//ошибка во втором условии
+                    /*Toast toast = Toast.makeText(AddPersonalActivity.this,"Выберите с кем и сумму", Toast.LENGTH_SHORT);
+                    toast.show();*/
+                    AlertDialog dialog = new AlertDialog.Builder(AddGroupActivity.this)
+                            .setTitle("Ошибка")
+                            .setMessage("Введите имя группы")
+                            .setPositiveButton("Попробовать снова", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create();
+                    dialog.show();
+                } else {
 
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        group.setName(name.getText().toString());
-                        if (file != null) {
-                            file=Bitmap.createScaledBitmap(file, file.getWidth()/4, file.getHeight()/4, false);
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            file.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                            group.setPic(stream.toByteArray());
+                    final Group group = new Group(); // Create managed objects directly
+
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            group.setName(name.getText().toString());
+                            if (file != null) {
+                                file = Bitmap.createScaledBitmap(file, file.getWidth() / 4, file.getHeight() / 4, false);
+                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                file.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                                group.setPic(stream.toByteArray());
+                            }
+                            RealmList<User> userRealmList = new RealmList<>();
+                            userRealmList.addAll(userArrayList);
+                            group.setUserList(userRealmList);
+                            realm.copyToRealm(group);
                         }
-                        RealmList<User> userRealmList = new RealmList<>();
-                        userRealmList.addAll(userArrayList);
-                        group.setUserList(userRealmList);
-                        realm.copyToRealm(group);
-                    }
-                });
-                Intent intent = new Intent(AddGroupActivity.this, MainActivity.class);
-                startActivity(intent);
+                    });
+                    Intent intent = new Intent(AddGroupActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
