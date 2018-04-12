@@ -66,6 +66,25 @@ public class OpAdapter extends BaseAdapter {
         holder.tvCurrency.setText(item.getCurrency().getName());
         //if (item.getTotal() != null) {
         String tot = String.valueOf(item.getValue());
+        if (item.getValue() >=0 ) {
+            if (tot.length() == 8) {
+                tot = tot.charAt(0) + tot.charAt(1) + tot.charAt(2) + "K";
+            }
+            if (tot.length() > 8) {
+                String totalMil = tot;
+                tot = ""+ totalMil.charAt(0);
+                tot += "M";
+            }
+        } else{
+            if (tot.length() == 9) {
+                tot = tot.charAt(0) + tot.charAt(1) + tot.charAt(2)+tot.charAt(3) + "K";
+            }
+            if (tot.length() > 9) {
+                String totalMil = tot;
+                tot = "-"+totalMil.charAt(1);
+                tot += "M";
+            }
+        }
         holder.tvTotal.setText(tot);
         if (item.getValue()<0)
             holder.tvTotal.setTextColor(context.getResources().getColor(R.color.minusBalance));
